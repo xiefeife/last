@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomlive.dao.ProductInfoMapper">
+  <resultMap id="BaseResultMap" type="com.tomlive.entity.ProductInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="specification" jdbcType="VARCHAR" property="specification" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.tomlive.entity.ProductInfo">
+    insert into product_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="specification != null">
+        specification,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="specification != null">
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+   <!--查看全部产品信息的方法  -->
+  <select id="selectAllProductInfo" resultMap="BaseResultMap">
+    select * from product_info
+  </select>
+  <!--查看多少产品信息的方法  -->
+  <select id="selectProductInfoCount" resultType="java.lang.Integer">
+  SELECT COUNT(*) FROM product_info
+  </select>
+  
+  
+  
+  
+</mapper>

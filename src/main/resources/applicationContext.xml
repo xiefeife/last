@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 导入项目的   aopjar包   MVCjar包  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/util
+	   http://www.springframework.org/schema/util/spring-util.xsd">
+		<!-- 导入数据库资源 -->
+		<context:property-placeholder location="classpath:db.properties"/>
+		
+		<!-- 创建数据源  也就是数据库连接池 -->
+		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+				<!--   数据库驱动 -->
+				 <property name="driverClassName" value="${jdbc.driver}" ></property>               
+				 <!-- 连接数据库的url -->
+		          <property name="url" value="${jdbc.url}"></property>
+		           <!-- 连接数据库的用户名 -->
+		          <property name="username" value="${jdbc.username}"></property>
+		           <!-- 连接数据库的密码 -->
+		          <property name="password" value="${jdbc.password}"></property>
+	     </bean>	
+	     
+	     
+	     
+		<!-- 事务管理器  操作数据库  依赖于数据源 -->
+		   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+          <!-- 注入数据源 -->
+          <property name="dataSource" ref="dataSource"></property>
+		  </bean>
+		  
+			<!-- 开启事务注解 -->
+	       <tx:annotation-driven transaction-manager="transactionManager"/>
+		   <!-- 创建mybatis工厂 -->
+		<bean id="SqlSessionFactory"   class="org.mybatis.spring.SqlSessionFactoryBean">
+		   <!--   注入数据源 -->
+		    <property name="dataSource" ref="dataSource"> </property>
+		   <!-- 配置mybatis核心配置文件 -->
+		  <property name="configLocation" value="classpath:mybatis-config.xml"/>
+		</bean>
+		
+		
+		
+		<!--配置Dao层的扫描器 -->
+       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+         <property name="basePackage" value="com.tomlive.dao"></property>
+       </bean>
+       
+       <!-- 配置service扫描包 -->
+       <context:component-scan base-package="com.tomlive.service"/>
+       <!-- 扫描配置文件类注解 -->
+		<context:component-scan base-package="com.tomlive.controller"/>
+		<!-- 配置通知 -->
+       <tx:advice id="Advice" transaction-manager="transactionManager">
+       		<tx:attributes>
+       			<!-- 传播行为 -->
+       			<tx:method name="save" propagation="REQUIRED"/>
+       			<tx:method name="ins" propagation="REQUIRED"/>
+       			<tx:method name="add" propagation="REQUIRED"/>
+       			<tx:method name="create" propagation="REQUIRED"/>
+       			<tx:method name="del" propagation="REQUIRED"/>
+       			<tx:method name="update" propagation="REQUIRED"/>
+       			<tx:method name="drop" propagation="REQUIRED"/>
+       			<tx:method name="modify" propagation="REQUIRED"/>
+       			<tx:method name="sel" propagation="REQUIRED"/>
+       			<tx:method name="select" propagation="REQUIRED"/>
+       			<tx:method name="get" propagation="REQUIRED"/>
+       		</tx:attributes>
+       </tx:advice> 		    
+		    <!-- 切面 -->
+        <aop:config>
+       		<aop:advisor advice-ref="Advice" pointcut="execution(* com.tomlive.service.*.*(..))"/>
+       </aop:config>   
+		    
+		    
+</beans> 

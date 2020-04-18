@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomlive.dao.TalentRecruitmentMapper">
+  <resultMap id="BaseResultMap" type="com.tomlive.entity.TalentRecruitment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job_category" jdbcType="VARCHAR" property="jobCategory" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_statement" jdbcType="VARCHAR" property="jobStatement" />
+    <result column="job_requirement" jdbcType="VARCHAR" property="jobRequirement" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+ <!--  <sql id="Base_Column_List">
+    id, job_category, job_title, job_statement, job_requirement, user_id, creation_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from talent_recruitment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from talent_recruitment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tomlive.entity.TalentRecruitment">
+    insert into talent_recruitment (id, job_category, job_title, 
+      job_statement, job_requirement, user_id, 
+      creation_time)
+    values (#{id,jdbcType=INTEGER}, #{jobCategory,jdbcType=VARCHAR}, #{jobTitle,jdbcType=VARCHAR}, 
+      #{jobStatement,jdbcType=VARCHAR}, #{jobRequirement,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{creationTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomlive.entity.TalentRecruitment">
+    insert into talent_recruitment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jobCategory != null">
+        job_category,
+      </if>
+      <if test="jobTitle != null">
+        job_title,
+      </if>
+      <if test="jobStatement != null">
+        job_statement,
+      </if>
+      <if test="jobRequirement != null">
+        job_requirement,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobCategory != null">
+        #{jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null">
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatement != null">
+        #{jobStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirement != null">
+        #{jobRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.TalentRecruitment">
+    update talent_recruitment
+    <set>
+      <if test="jobCategory != null">
+        job_category = #{jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null">
+        job_title = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatement != null">
+        job_statement = #{jobStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirement != null">
+        job_requirement = #{jobRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomlive.entity.TalentRecruitment">
+    update talent_recruitment
+    set job_category = #{jobCategory,jdbcType=VARCHAR},
+      job_title = #{jobTitle,jdbcType=VARCHAR},
+      job_statement = #{jobStatement,jdbcType=VARCHAR},
+      job_requirement = #{jobRequirement,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update> -->
+ 
+  <!-- 查询岗位招聘的全部信息 -->
+  <select id="selectAllTalentRecruitment" resultMap="BaseResultMap">
+    select * from talent_recruitment
+  </select>
+  
+    <!--   查询岗位招聘的数量 -->
+  <select id="selectTalentRecruitmentCount" resultType="java.lang.Integer">
+  select  count(*) from talent_recruitment
+  </select>
+  
+ <!--  每个岗位需要招聘多少人 -->
+   <select id="selectSizeGroupBy" resultType="com.tomlive.util.TalentRecruitmentUtil">
+    SELECT job_category  as jobCategory ,count(job_category) as count from talent_recruitment GROUP BY job_category
+  </select>
+  
+  
+   <!--  岗位管理的多条件查询 -->
+  <select id="selectTalentRecruitmentByCondition" resultMap="BaseResultMap">
+   select  
+  *
+   from talent_recruitment
+   <where>
+     <!-- 岗位名称 -->
+       <if test="jobCategory != null">
+        job_category=#{jobCategory}  
+      </if>
+        <!--  岗位类别 -->
+        <if test="jobName != null">
+        job_name=#{jobName}  
+      </if>
+        <!--创建时间 -->
+   <if test="creationTime != null">
+        creation_time=#{}
+      </if>
+  
+  
+   </where>
+  </select>
+  
+  
+  
+</mapper>

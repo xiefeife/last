@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomlive.dao.PressCenterMapper">
+  <resultMap id="BaseResultMap" type="com.tomlive.entity.PressCenter">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="particulars" jdbcType="VARCHAR" property="particulars" />
+  
+    <association property="presssort" javaType="PressSort">
+     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="press_name" jdbcType="VARCHAR" property="pressName" />
+    <result column="press_describe" jdbcType="VARCHAR" property="pressDescribe" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    </association>
+  </resultMap>
+  
+  <!-- <sql id="Base_Column_List">
+    id, photo, title, user_id, creation_time, particulars, press_sortId
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from press_center
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from press_center
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tomlive.entity.PressCenter">
+    insert into press_center (id, photo, title, 
+      user_id, creation_time, particulars, 
+      press_sortId, content)
+    values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{creationTime,jdbcType=TIMESTAMP}, #{particulars,jdbcType=VARCHAR}, 
+      #{pressSortid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tomlive.entity.PressCenter">
+    insert into press_center
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="particulars != null">
+        particulars,
+      </if>
+      <if test="pressSortid != null">
+        press_sortId,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="particulars != null">
+        #{particulars,jdbcType=VARCHAR},
+      </if>
+      <if test="pressSortid != null">
+        #{pressSortid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.PressCenter">
+    update press_center
+    <set>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="particulars != null">
+        particulars = #{particulars,jdbcType=VARCHAR},
+      </if>
+      <if test="pressSortid != null">
+        press_sortId = #{pressSortid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tomlive.entity.PressCenter">
+    update press_center
+    set photo = #{photo,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      particulars = #{particulars,jdbcType=VARCHAR},
+      press_sortId = #{pressSortid,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tomlive.entity.PressCenter">
+    update press_center
+    set photo = #{photo,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      particulars = #{particulars,jdbcType=VARCHAR},
+      press_sortId = #{pressSortid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update> -->
+  
+  <select id="selectAllPressCenter" resultMap="BaseResultMap">
+        select 
+        c.id, photo, title, c.user_id, c.creation_time, particulars, 
+        press_name, press_describe, s.create_time
+        from press_center c,press_sort  s 
+        
+  </select>
+  
+  <select id="selectPressCenterCount" resultType="java.lang.Integer">
+  select count(*) from press_center 
+  
+  </select>
+  
+  
+</mapper>
