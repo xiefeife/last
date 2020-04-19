@@ -7,75 +7,84 @@ import java.util.Date;
  *  @author Xie
  *  @date2020年4月16日
  */
+
 public class Operation {
     private Integer operationId;
 
+    //日志操作时间
     private Date operationTime;
-
+    //日志操作内容
     private String operationContent;
+   //日志操作者
+    private String userName;
+  
+    //请求的ip
+	private String operationIp;
 
-    private Integer userId;
-
-    private String operationIp;
-
-    private String param;
-
-    public Integer getOperationId() {
-        return operationId;
-    }
-
-    public void setOperationId(Integer operationId) {
-        this.operationId = operationId;
-    }
-
-    public Date getOperationTime() {
-        return operationTime;
-    }
-
-    public void setOperationTime(Date operationTime) {
-        this.operationTime = operationTime;
-    }
-
-    public String getOperationContent() {
-        return operationContent;
-    }
-
-    public void setOperationContent(String operationContent) {
-        this.operationContent = operationContent == null ? null : operationContent.trim();
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getOperationIp() {
-        return operationIp;
-    }
-
-    public void setOperationIp(String operationIp) {
-        this.operationIp = operationIp == null ? null : operationIp.trim();
-    }
-
-    public String getParam() {
-        return param;
-    }
-
-    public void setParam(String param) {
-        this.param = param == null ? null : param.trim();
-    }
+	public Operation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {
 		return "Operation [operationId=" + operationId + ", operationTime=" + operationTime + ", operationContent="
-				+ operationContent + ", userId=" + userId + ", operationIp=" + operationIp + ", param=" + param + "]";
+				+ operationContent + ", userName=" + userName + ", operationIp=" + operationIp + ", param=" + param
+				+ "]";
 	}
 
-	public Operation() {
-		super();
+	public Integer getOperationId() {
+		return operationId;
 	}
-    
+
+	public void setOperationId(Integer operationId) {
+		this.operationId = operationId;
+	}
+
+	public Date getOperationTime() {
+		return operationTime;
+	}
+
+	public void setOperationTime(Date operationTime) {
+		this.operationTime = operationTime;
+	}
+
+	public String getOperationContent() {
+		return operationContent;
+	}
+
+	public void setOperationContent(String operationContent) {
+		this.operationContent = operationContent;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getOperationIp() {
+		return operationIp;
+	}
+
+	public void setOperationIp(String operationIp) {
+		this.operationIp = operationIp;
+	}
+
+	public String getParam() {
+		return param;
+	}
+
+	public void setParam(String param) {
+		this.param = param;
+	}
+
+	//日志操作参数
+    private String param;
+
+ 
+
+	
 }

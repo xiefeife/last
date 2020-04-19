@@ -17,4 +17,11 @@ public interface OperationService {
      * @return  
      */
 	List<Operation> selectAllOperation();
+	
+	/**
+	 * 添加日志的方法
+	 * @param operation   日志对象
+	 * @return  成功与否
+	 */
+	boolean insertSelective(Operation operation);
 }

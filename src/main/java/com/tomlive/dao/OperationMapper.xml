@@ -5,11 +5,11 @@
     <id column="operation_id" jdbcType="INTEGER" property="operationId" />
     <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
     <result column="operation_content" jdbcType="VARCHAR" property="operationContent" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="operation_ip" jdbcType="VARCHAR" property="operationIp" />
     <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName"/>
   </resultMap>
-  <sql id="Base_Column_List">
+  <!-- <sql id="Base_Column_List">
     operation_id, operation_time, operation_content, user_id, operation_ip, param
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,49 +30,7 @@
       #{userId,jdbcType=INTEGER}, #{operationIp,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tomlive.entity.Operation">
-    insert into operation
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="operationId != null">
-        operation_id,
-      </if>
-      <if test="operationTime != null">
-        operation_time,
-      </if>
-      <if test="operationContent != null">
-        operation_content,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="operationIp != null">
-        operation_ip,
-      </if>
-      <if test="param != null">
-        param,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="operationId != null">
-        #{operationId,jdbcType=INTEGER},
-      </if>
-      <if test="operationTime != null">
-        #{operationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="operationContent != null">
-        #{operationContent,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="operationIp != null">
-        #{operationIp,jdbcType=VARCHAR},
-      </if>
-      <if test="param != null">
-        #{param,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+ 
   <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.Operation">
     update operation
     <set>
@@ -102,7 +60,7 @@
       operation_ip = #{operationIp,jdbcType=VARCHAR},
       param = #{param,jdbcType=VARCHAR}
     where operation_id = #{operationId,jdbcType=INTEGER}
-  </update>
+  </update> -->
   
   
      <!-- 自定义查询语句 -->
@@ -110,6 +68,83 @@
         select *
         from   operation
       </select>
+      
+     <!--  添加日志的方法 -->
+   <insert id="insertSelective" parameterType="com.tomlive.entity.Operation">
+    insert into operation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="operationId != null">
+        operation_id,
+      </if>
+      <if test="operationTime != null">
+        operation_time,
+      </if>
+      <if test="operationContent != null">
+        operation_content,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="operationIp != null">
+        operation_ip,
+      </if>
+      <if test="param != null">
+        param,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="operationId != null">
+        #{operationId,jdbcType=INTEGER},
+      </if>
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationContent != null">
+        #{operationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationIp != null">
+        #{operationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+<select id="selectOperationByCondition" resultMap="BaseResultMap">
+  select * from operation
+  <where>
+     <if test="operationIp != null">
+       and operation_ip=#{operationIp}               
+      </if>
+     <if test="userName != null">
+        and  user_name=#{userName}
+      </if>
+      <if test="null!=goodsName and ''!=goodsName ">
+				and g.goods_name like concat("%",#{goodsName},"%")
+				<!-- and g.goods_name= #{goodsName} -->
+	</if>
+        <if test="beginTime != null">
+        <![CDATA[
+       and  s.sell_outbound_time >= #{beginTime}
+       ]]>
+     </if>
+        <if test="endTime != null">
+        <![CDATA[
+       and  s.sell_outbound_time <= #{endTime}
+       ]]>
+      </if>
+      
+      
+        <if test="operationTime != null">
+      and  operation_time=#{operationTime,jdbcType=TIMESTAMP}
+      </if>
   
-  
+  </where>
+</select>
 </mapper>

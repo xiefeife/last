@@ -28,7 +28,6 @@ public class TokenMange {
 		
 		//格式化成1_6a0650ae05de40f2a230c2f71584add3
         String token = userId+"_"+uuid.toString().replaceAll("-", "");
-				
         HttpServletRequest request = null;
         HttpSession session = request.getSession();
         session.setAttribute("token",token);      //设置token,参数token是要设置的具体值

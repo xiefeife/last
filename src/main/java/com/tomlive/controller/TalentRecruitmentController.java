@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tomlive.annotation.SysLog;
 import com.tomlive.entity.TalentRecruitment;
 import com.tomlive.service.TalentRecruitmentService;
 import com.tomlive.util.JsonUtil;
@@ -27,7 +28,8 @@ public class TalentRecruitmentController {
 	 * 查看所有人才招聘信息的方法
 	 * @return 成功的json信息
 	 */
-	@RequestMapping(value = "selectAllTalentRecruitment.json", method = RequestMethod.POST)
+	@SysLog(description="查看所有新闻中心")
+	@RequestMapping(value = "selectAllTalentRecruitment", method = RequestMethod.POST)
 	public JsonUtil selectAllTalentRecruitment() {
 		List<TalentRecruitment> list = talentRecruitmentService.selectAllTalentRecruitment();
 		if (null != list) {
@@ -56,7 +58,8 @@ public class TalentRecruitmentController {
 	 * 统计岗位招聘的数量
 	 * @return 成功与否
 	 */
-	@RequestMapping("selectTalentRecruitmentCount.json")
+	@SysLog(description="查看新闻中心的次数")
+	@RequestMapping("selectTalentRecruitmentCount")
 	public JsonUtil selectTalentRecruitmentCount() {
 		
 	int count=	talentRecruitmentService.selectTalentRecruitmentCount();

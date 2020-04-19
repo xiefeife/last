@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tomlive.annotation.SysLog;
 import com.tomlive.entity.ProductInfo;
 import com.tomlive.service.ProductInfoService;
 import com.tomlive.util.JsonUtil;
@@ -24,7 +26,8 @@ public class ProductInfoController {
 	 * 查看全部产品信息详情的方法
 	 * @return
 	 */
-	@RequestMapping(value = "selectAllProductInfo.json", method = RequestMethod.POST)
+	@SysLog(description="查看产品详情")
+	@RequestMapping(value = "selectAllProductInfo", method = RequestMethod.POST)
 	public JsonUtil selectAllProductInfo() {
 		List<ProductInfo> list = productInfoService.selectAllProductInfo();
 		if (null != list) {
@@ -39,11 +42,11 @@ public class ProductInfoController {
 	 * @param productInfo
 	 * @return
 	 */
-	@ResponseBody
+	@SysLog(description="添加产品详情")
 	@RequestMapping(value="insertSelectProductInfo",method = RequestMethod.POST)
-	public JsonUtil  insertSelectProductInfo(@PathVariable("ProductInfo")ProductInfo  productInfo) {
+	public JsonUtil  insertSelectProductInfo(@RequestParam ProductInfo  productInfo) {
 		
- 	boolean   choose=	         productInfoService.insertSelective(productInfo);
+ 	boolean   choose= productInfoService.insertSelective(productInfo);
  		if(choose) {
  			return   new JsonUtil("200", null, "添加产品信息成功");
  		}
@@ -54,7 +57,8 @@ public class ProductInfoController {
 	 * 查看多少产品信息的方法
 	 * @return  受影响的行数
 	 */
-	@RequestMapping(value="selectProductInfoCount.json",method = RequestMethod.POST)
+	@SysLog(description="查看产品数量")
+	@RequestMapping(value="selectProductInfoCount",method = RequestMethod.POST)
 	public JsonUtil   selectProductInfoCount() {
 	int  count= 	productInfoService.selectProductInfoCount();
 	if(0<count) {
