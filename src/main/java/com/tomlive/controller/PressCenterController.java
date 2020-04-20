@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tomlive.annotation.SysLog;
 import com.tomlive.entity.PressCenter;
 import com.tomlive.service.PressCenterService;
 import com.tomlive.util.JsonUtil;
@@ -32,7 +33,8 @@ public class PressCenterController {
 	 * 
 	 * @return 成功与否
 	 */
-	@RequestMapping(value = "selectAllPressCenter.json", method = RequestMethod.POST)
+	@SysLog(description="查看所有新闻中心")
+	@RequestMapping(value = "selectAllPressCenter", method = RequestMethod.POST)
 	public JsonUtil selectAllPressCenter() {
 		List<PressCenter> list = pressCenterService.selectAll();
 		if (null != list) {
@@ -48,6 +50,7 @@ public class PressCenterController {
 	 * @param pressCenter 新闻中心对象
 	 * @return 成功与否
 	 */
+	@SysLog(description="添加新闻")
 	@RequestMapping(value = "insertSelectPressCenter", method = RequestMethod.POST)
 	public JsonUtil insertSelectPressCenter(@RequestBody PressCenter pressCenter) {
 		boolean choose = pressCenterService.insertSelective(pressCenter);

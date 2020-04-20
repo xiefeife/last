@@ -3,6 +3,7 @@ package com.tomlive.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tomlive.dao.OperationMapper;
 import com.tomlive.entity.Operation;
@@ -13,6 +14,7 @@ import com.tomlive.service.OperationService;
  * @author XIE
  * 2020年4月17日
  */
+@Service
 public class OperationServiceImpl implements OperationService{
 	@Autowired
 	private  OperationMapper  operationMapper;
@@ -27,7 +29,17 @@ public class OperationServiceImpl implements OperationService{
 		
 		return operationMapper.selectAllOperation();
 	}
-	
-	
+
+
+	/**
+	 * 添加日志的方法
+	 * @param operation   日志对象
+	 * @return  成功与否
+	 */
+	@Override
+	public boolean insertSelective(Operation operation) {
+		int   count   = operationMapper.insertSelective(operation);
+		return count>0?true:false;
+	}
 
 }

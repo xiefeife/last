@@ -17,7 +17,7 @@ import com.tomlive.util.JsonUtil;
  */
 @ResponseBody
 @Controller
-@RequestMapping(value="operation.json",method = RequestMethod.POST)
+@RequestMapping(value="operation",method = RequestMethod.POST)
 public class OperationController {
 
 	@Autowired

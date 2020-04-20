@@ -10,17 +10,26 @@ import java.util.Date;
 public class Operation {
     private Integer operationId;
 
+    //日志操作时间
     private Date operationTime;
-
+    //日志操作内容
     private String operationContent;
+   //日志操作者
+    private User user;
+  
+    //日志操作ip
+	private String operationIp;
 
-    private Integer userId;
-
-    private String operationIp;
-
+	//日志操作参数
     private String param;
 
-    public Integer getOperationId() {
+    @Override
+	public String toString() {
+		return "Operation [operationId=" + operationId + ", operationTime=" + operationTime + ", operationContent="
+				+ operationContent + ", user=" + user + ", operationIp=" + operationIp + ", param=" + param + "]";
+	}
+
+	public Integer getOperationId() {
         return operationId;
     }
 
@@ -44,15 +53,17 @@ public class Operation {
         this.operationContent = operationContent == null ? null : operationContent.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+ 
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    public User getUser() {
+		return user;
+	}
 
-    public String getOperationIp() {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getOperationIp() {
         return operationIp;
     }
 
@@ -68,11 +79,7 @@ public class Operation {
         this.param = param == null ? null : param.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Operation [operationId=" + operationId + ", operationTime=" + operationTime + ", operationContent="
-				+ operationContent + ", userId=" + userId + ", operationIp=" + operationIp + ", param=" + param + "]";
-	}
+	
 
 	public Operation() {
 		super();
