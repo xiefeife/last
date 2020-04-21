@@ -2,84 +2,138 @@ package com.tomlive.entity;
 
 import java.util.Date;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 产品信息实体类
+ *  @author Xie
+ *  @date2020年4月20日
+ */
+/*
+ * @Data
+ * 
+ * @NoArgsConstructor
+ */
 public class ProductInfo {
     private Integer id;
 
     private String photo;
 
-    private String title;
+    private String name;
 
-    private Integer userId;
+    private User user;
 
     private Date creationTime;
 
+    /**
+     * 排序
+     */
     private Integer sort;
 
     private String specification;
 
     private String context;
 
-    public Integer getId() {
-        return id;
-    }
+    private String productType;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer status;
 
-    public String getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
-    }
 
-    public String getTitle() {
-        return title;
-    }
+	@Override
+	public String toString() {
+		return "ProductInfo [id=" + id + ", photo=" + photo + ", name=" + name + ", user=" + user + ", creationTime="
+				+ creationTime + ", sort=" + sort + ", specification=" + specification + ", context=" + context
+				+ ", productType=" + productType + ", status=" + status + "]";
+	}
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public Integer getUserId() {
-        return userId;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Date getCreationTime() {
-        return creationTime;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
+	public String getPhoto() {
+		return photo;
+	}
 
-    public Integer getSort() {
-        return sort;
-    }
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getSpecification() {
-        return specification;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setSpecification(String specification) {
-        this.specification = specification == null ? null : specification.trim();
-    }
+	
 
-    public String getContext() {
-        return context;
-    }
+	public Date getCreationTime() {
+		return creationTime;
+	}
 
-    public void setContext(String context) {
-        this.context = context == null ? null : context.trim();
-    }
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public ProductInfo() {
+		super();
+	}
+
+
+    
 }

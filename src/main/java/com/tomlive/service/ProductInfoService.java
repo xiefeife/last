@@ -2,6 +2,8 @@ package com.tomlive.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tomlive.entity.ProductInfo;
 
 /**
@@ -19,4 +21,7 @@ public interface ProductInfoService {
 	 * @return  受影响的行数
 	 */
     int selectProductInfoCount();
+    
+  
+   List<ProductInfo>   selectProductInfoByCondition();
 }

@@ -3,13 +3,22 @@
 <mapper namespace="com.tomlive.dao.TalentRecruitmentMapper">
   <resultMap id="BaseResultMap" type="com.tomlive.entity.TalentRecruitment">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="job_category" jdbcType="VARCHAR" property="jobCategory" />
+    <result column="job_type" jdbcType="VARCHAR" property="jobType" />
     <result column="job_name" jdbcType="VARCHAR" property="jobName" />
     <result column="job_statement" jdbcType="VARCHAR" property="jobStatement" />
     <result column="job_requirement" jdbcType="VARCHAR" property="jobRequirement" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <!-- <result column="user_id" jdbcType="INTEGER" property="userId" /> -->
     <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
+      <association property="user" javaType="com.tomlive.entity.User"> 
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    </association>
+
+    
   </resultMap>
  <!--  <sql id="Base_Column_List">
     id, job_category, job_title, job_statement, job_requirement, user_id, creation_time
@@ -32,55 +41,7 @@
       #{jobStatement,jdbcType=VARCHAR}, #{jobRequirement,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{creationTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.tomlive.entity.TalentRecruitment">
-    insert into talent_recruitment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="jobCategory != null">
-        job_category,
-      </if>
-      <if test="jobTitle != null">
-        job_title,
-      </if>
-      <if test="jobStatement != null">
-        job_statement,
-      </if>
-      <if test="jobRequirement != null">
-        job_requirement,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="creationTime != null">
-        creation_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="jobCategory != null">
-        #{jobCategory,jdbcType=VARCHAR},
-      </if>
-      <if test="jobTitle != null">
-        #{jobTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="jobStatement != null">
-        #{jobStatement,jdbcType=VARCHAR},
-      </if>
-      <if test="jobRequirement != null">
-        #{jobRequirement,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="creationTime != null">
-        #{creationTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.TalentRecruitment">
     update talent_recruitment
     <set>
@@ -115,10 +76,63 @@
       creation_time = #{creationTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update> -->
- 
+      <!-- 添加招聘岗位 -->
+ <insert id="insertSelective" parameterType="com.tomlive.entity.TalentRecruitment">
+    insert into talent_recruitment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jobType != null">
+        job_type,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="jobStatement != null">
+        job_statement,
+      </if>
+      <if test="jobRequirement != null">
+        job_requirement,
+      </if>
+      <if test="user != null">
+        user,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobType != null">
+        #{jobType,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatement != null">
+        #{jobStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequirement != null">
+        #{jobRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
   <!-- 查询岗位招聘的全部信息 -->
   <select id="selectAllTalentRecruitment" resultMap="BaseResultMap">
-    select * from talent_recruitment
+    select 
+    t.id, job_type, job_name, job_statement, job_requirement, u.user_name, creation_time,t.status
+    from talent_recruitment t
+    left join user u      on  t.user_id=u.id
+    
   </select>
   
     <!--   查询岗位招聘的数量 -->
@@ -128,7 +142,7 @@
   
  <!--  每个岗位需要招聘多少人 -->
    <select id="selectSizeGroupBy" resultType="com.tomlive.util.TalentRecruitmentUtil">
-    SELECT job_category  as jobCategory ,count(job_category) as count from talent_recruitment GROUP BY job_category
+    SELECT job_type  as jobType ,count(job_type) as count from talent_recruitment GROUP BY job_type
   </select>
   
   
@@ -140,11 +154,11 @@
    <where>
      <!-- 岗位名称 -->
        <if test="jobCategory != null">
-        job_category=#{jobCategory}  
+        job_name=#{jobName}  
       </if>
         <!--  岗位类别 -->
-        <if test="jobName != null">
-        job_name=#{jobName}  
+        <if test="jobType != null">
+        job_type=#{jobType}  
       </if>
         <!--创建时间 -->
    <if test="creationTime != null">

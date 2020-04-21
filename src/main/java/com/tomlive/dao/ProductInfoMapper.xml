@@ -4,13 +4,23 @@
   <resultMap id="BaseResultMap" type="com.tomlive.entity.ProductInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <!-- <result column="user_id" jdbcType="INTEGER" property="userId" /> -->
     <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
+     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+     <result column="context" jdbcType="VARCHAR" property="context" />
+    <association property="user" javaType="com.tomlive.entity.User"> 
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    </association>
   </resultMap>
-  <insert id="insertSelective" parameterType="com.tomlive.entity.ProductInfo">
+  <!-- <insert id="insertSelective" parameterType="com.tomlive.entity.ProductInfo">
     insert into product_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -64,13 +74,22 @@
         #{context,jdbcType=LONGVARCHAR},
       </if>
     </trim>
-  </insert>
+  </insert> -->
+
+ 
+  
+
 
 
    <!--查看全部产品信息的方法  -->
   <select id="selectAllProductInfo" resultMap="BaseResultMap">
-    select * from product_info
+    select 
+    p.photo,p.creation_time,u.user_name,p.specification,p.status,p.id,name,p.product_type,p.context
+    from 
+    product_info      p
+    left  join   user u  on p.user_id=u.id
   </select>
+  
   <!--查看多少产品信息的方法  -->
   <select id="selectProductInfoCount" resultType="java.lang.Integer">
   SELECT COUNT(*) FROM product_info
@@ -78,5 +97,20 @@
   
   
   
+  <!-- 根据条件查看产品信息 -->
+    <select id="selectProductInfoByCondition" resultMap="BaseResultMap">
+      select * from product_info 
+      <where>
+         <if test="creationTime != null">
+       and creation_time=#{creationTime}
+         </if>
+       <if test="name != null">
+        and name=#{name,jdbcType=VARCHAR}
+      </if>
+      
+      </where>
+    
+    
+    </select>
   
 </mapper>

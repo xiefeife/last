@@ -1,4 +1,6 @@
 package com.tomlive.service;
+import java.util.List;
+
 import com.tomlive.entity.User;
 /**
  *  用户业务逻辑层接口
@@ -16,7 +18,7 @@ public interface UserService {
 	 User login(String userName,String password) throws Exception;
 
      /**
-                  * 添加用户的方法
+      * 添加用户的方法
       * @param user  用户对象
       * @return   添加成功与否
       */
@@ -35,7 +37,7 @@ public interface UserService {
 	 * @param param 数字0或者1
 	 * @return 受影响行数
 	 */
-  boolean updateUserStatus(int param )throws Exception;
+   boolean updateUserStatus(int param )throws Exception;
 
 	/**
 	   * 根据用户id查看用户状态
@@ -51,5 +53,12 @@ public interface UserService {
    * @return
    * @throws Exception
    */
-   boolean updateUserPassword(String password,Integer id)throws Exception;
+   boolean updateUserPassword(String password,String userName)throws Exception;
+   
+
+   /**
+    * 根据条件查询用户
+    * @return
+    */
+   List<User> selectUserByCondition() throws Exception;
 }

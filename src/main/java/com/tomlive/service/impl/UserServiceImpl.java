@@ -1,5 +1,7 @@
 package com.tomlive.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,9 +94,20 @@ public class UserServiceImpl implements UserService {
 	   * @throws Exception
 	   */
 	@Override
-	public boolean updateUserPassword(String password,Integer id) throws Exception {
-		int count= userMapper.updateUserPassword(password,id);
+	public boolean updateUserPassword(String password,String userName)  {
+		int count= userMapper.updateUserPassword(password,userName);
 		return count>0?true:false;
+	}
+
+
+    /**
+     * 根据条件查询用户
+     * @return
+     */
+	@Override
+	public List<User> selectUserByCondition() {
+		
+		return userMapper.selectUserByCondition();
 	}
 
 }

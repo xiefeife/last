@@ -118,7 +118,26 @@
   
   <!--  修改用户密码 -->
   <update id="updateUserPassword" parameterType="com.tomlive.entity.User">
-    update  user  set   password=#{password}  where id=#{id}
+    update  user  set   password=#{password}  where user_name=#{userName}
  </update>
+  
+                  <!-- 根据条件查询用户 -->
+  <select id="selectUserByCondition" resultMap="BaseResultMap">
+    select  id, user_name, password, real_name, status
+    from  user 
+  <where>
+  	<if test="userName != null">
+       and user_name=#{userName}               
+      </if>
+     <if test="status != null">
+       and status=#{status}               
+      </if>
+     <if test="realName != null">
+       and real_name=#{realName}               
+      </if>
+  </where>
+  </select>
+  
+  
   
 </mapper>

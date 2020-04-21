@@ -8,13 +8,23 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
     <result column="particulars" jdbcType="VARCHAR" property="particulars" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   
-    <association property="presssort" javaType="PressSort">
+  
+    <association property="presssort" javaType="com.tomlive.entity.PressSort">
      <id column="id" jdbcType="INTEGER" property="id" />
     <result column="press_name" jdbcType="VARCHAR" property="pressName" />
     <result column="press_describe" jdbcType="VARCHAR" property="pressDescribe" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    </association>
+    
+    <association property="user" javaType="User">
+      <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     </association>
   </resultMap>
   
@@ -148,11 +158,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update> -->
   
+     <!--  查看全部新闻中心的方法 -->
   <select id="selectAllPressCenter" resultMap="BaseResultMap">
         select 
-        c.id, photo, title, c.user_id, c.creation_time, particulars, 
-        press_name, press_describe, s.create_time
-        from press_center c,press_sort  s 
+        c.id, photo, title, u.user_name, c.creation_time, particulars, 
+        press_name, press_describe, s.create_time,c.status
+        from press_center c,press_sort  s ,user u
         
   </select>
   

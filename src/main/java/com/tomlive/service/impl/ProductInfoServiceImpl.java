@@ -49,5 +49,11 @@ public class ProductInfoServiceImpl implements ProductInfoService{
 	  return count;
 			 
 	}
+
+	@Override
+	public List<ProductInfo> selectProductInfoByCondition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

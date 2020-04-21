@@ -5,22 +5,90 @@ import java.util.Date;
 public class TalentRecruitment {
     private Integer id;
 
-    private String jobCategory;
+    /**
+     * 岗位类型
+     */
+    private String jobType;
 
+    /**
+     * 岗位名称
+     */
     private String jobName;
 
+    /**
+     * 岗位职责
+     */
     private String jobStatement;
 
+    /**
+     * 岗位要求
+     */
     private String jobRequirement;
 
-    private Integer userId;
+    private User user;
 
     private Date creationTime;
     
     private Integer  status;
-    
 
-    public Integer getStatus() {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
+
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+
+	public String getJobStatement() {
+		return jobStatement;
+	}
+
+	public void setJobStatement(String jobStatement) {
+		this.jobStatement = jobStatement;
+	}
+
+	public String getJobRequirement() {
+		return jobRequirement;
+	}
+
+	public void setJobRequirement(String jobRequirement) {
+		this.jobRequirement = jobRequirement;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Integer getStatus() {
 		return status;
 	}
 
@@ -28,59 +96,9 @@ public class TalentRecruitment {
 		this.status = status;
 	}
 
-	public Integer getId() {
-        return id;
-    }
+	public TalentRecruitment() {
+		super();
+	}
+    
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getJobCategory() {
-        return jobCategory;
-    }
-
-    public void setJobCategory(String jobCategory) {
-        this.jobCategory = jobCategory == null ? null : jobCategory.trim();
-    }
-
-    public String getjobName() {
-        return jobName;
-    }
-
-    public void setjobName(String jobName) {
-        this.jobName = jobName == null ? null : jobName.trim();
-    }
-
-    public String getJobStatement() {
-        return jobStatement;
-    }
-
-    public void setJobStatement(String jobStatement) {
-        this.jobStatement = jobStatement == null ? null : jobStatement.trim();
-    }
-
-    public String getJobRequirement() {
-        return jobRequirement;
-    }
-
-    public void setJobRequirement(String jobRequirement) {
-        this.jobRequirement = jobRequirement == null ? null : jobRequirement.trim();
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Date getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
 }

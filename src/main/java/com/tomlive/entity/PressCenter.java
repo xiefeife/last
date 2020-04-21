@@ -9,16 +9,26 @@ public class PressCenter {
 
     private String title;
 
-    private Integer userId;
+    private User user;
 
     private Date creationTime;
 
     private String particulars;
 
     private PressSort presssort;
+    
+    private Integer status;
 
     public PressSort getPresssort() {
 		return presssort;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public void setPresssort(PressSort presssort) {
@@ -51,15 +61,17 @@ public class PressCenter {
         this.title = title == null ? null : title.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    public User getUser() {
+		return user;
+	}
 
-    public Date getCreationTime() {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getCreationTime() {
         return creationTime;
     }
 

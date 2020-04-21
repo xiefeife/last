@@ -67,7 +67,8 @@ public class PressCenterController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value="selectPressCenterCount.json", method = RequestMethod.POST)
+	//@SysLog(description="查看新闻中心数量")
+	@RequestMapping(value="selectPressCenterCount", method = RequestMethod.POST)
 	  public  JsonUtil  selectPressCenterCount() {
 		  
        int  count=		  pressCenterService.selectPressCenterCount();

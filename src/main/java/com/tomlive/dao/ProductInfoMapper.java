@@ -26,4 +26,11 @@ public interface ProductInfoMapper {
 	 * @return  受影响的行数
 	 */
 	int selectProductInfoCount();
+	
+	/**
+	 * 根据条件查看产品信息
+	 * @return
+	 */
+	List<ProductInfo>  selectProductInfoByCondition();
+	
 }

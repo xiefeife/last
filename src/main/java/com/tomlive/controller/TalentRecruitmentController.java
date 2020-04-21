@@ -38,7 +38,7 @@ public class TalentRecruitmentController {
 		return new JsonUtil("500", null, "查询查看所有人才招聘信息失败");
 	}
 	/**
-	   * 添加人才招聘信息的方法
+	   * 添加岗位招聘的方法
 	 * @param talentRecruitment
 	 * @return  成功的json格式
 	 */
@@ -58,7 +58,7 @@ public class TalentRecruitmentController {
 	 * 统计岗位招聘的数量
 	 * @return 成功与否
 	 */
-	@SysLog(description="查看新闻中心的次数")
+	//@SysLog(description="查看新闻中心的次数")
 	@RequestMapping("selectTalentRecruitmentCount")
 	public JsonUtil selectTalentRecruitmentCount() {
 		
@@ -72,20 +72,15 @@ public class TalentRecruitmentController {
 	
 	/**
 	 * 统计每个岗位的招聘数量
-	 * 
 	 * @return
 	 */
-	@RequestMapping(value="selectSizeGroupBy.json",method = RequestMethod.POST)
+	@RequestMapping(value="selectSizeGroupBy",method = RequestMethod.POST)
 	public JsonUtil selectSizeGroupBy() {
 		
 		List<TalentRecruitment> list=	talentRecruitmentService.selectSizeGroupBy();
 		if(null!=list) {
-   
-   
           return   new  JsonUtil("200", list, "每个岗位招聘数量查询成功");
-		
 	}
-
 		return   new  JsonUtil("500", null, "每个岗位招聘数量查询失败");
 }
 }

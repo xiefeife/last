@@ -5,17 +5,13 @@
     <id column="operation_id" jdbcType="INTEGER" property="operationId" />
     <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
     <result column="operation_content" jdbcType="VARCHAR" property="operationContent" />
-   <!--  <result column="user_id" jdbcType="INTEGER" property="userId" /> -->
+
     <result column="operation_ip" jdbcType="VARCHAR" property="operationIp" />
     <result column="param" jdbcType="VARCHAR" property="param" />
+
     
-    <association property="user" javaType="com.tomlive.entity.User">  
-      <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    </association>
+   
+    <result column="userName" jdbcType="VARCHAR" property="userName"/>
   </resultMap>
   <!-- <sql id="Base_Column_List">
     operation_id, operation_time, operation_content, user_id, operation_ip, param
@@ -90,14 +86,14 @@
       <if test="operationContent != null">
         operation_content,
       </if>
-      <if test="user != null">
-        user,
-      </if>
       <if test="operationIp != null">
         operation_ip,
       </if>
       <if test="param != null">
         param,
+      </if>
+       <if test="userName != null">
+        user_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -110,17 +106,47 @@
       <if test="operationContent != null">
         #{operationContent,jdbcType=VARCHAR},
       </if>
-      <if test="user != null">
-        #{user,jdbcType=INTEGER},
-      </if>
       <if test="operationIp != null">
         #{operationIp,jdbcType=VARCHAR},
       </if>
       <if test="param != null">
         #{param,jdbcType=VARCHAR},
       </if>
+          <if test="userName != null">
+        #{userName,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
 
-  
+
+ <!--  根据条件产看日志信息 -->
+<select id="selectOperationByCondition" resultMap="BaseResultMap">
+  select * from operation
+  <where>
+     <if test="operationIp != null">
+       and operation_ip=#{operationIp}               
+      </if>
+     <if test="userName != null">
+        and  user_name=#{userName}
+      </if>
+      <if test="null!=goodsName and ''!=goodsName ">
+				and g.goods_name like concat("%",#{goodsName},"%")
+				<!-- and g.goods_name= #{goodsName} -->
+	</if>
+        <if test="beginTime != null">
+        <![CDATA[
+       and  s.sell_outbound_time >= #{beginTime}
+       ]]>
+     </if>
+        <if test="endTime != null">
+        <![CDATA[
+       and  s.sell_outbound_time <= #{endTime}
+       ]]>
+      </if>
+        <if test="operationTime != null">
+      and  operation_time=#{operationTime,jdbcType=TIMESTAMP}
+      </if>
+  </where>
+</select>
+
 </mapper>

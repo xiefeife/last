@@ -1,5 +1,7 @@
 package com.tomlive.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.tomlive.entity.User;
@@ -17,7 +19,7 @@ public interface UserMapper {
      User login(@Param("userName")String userName,@Param("password")String password);
 
      /**
-                  * 添加用户的方法
+       * 添加用户的方法
       * @param user  用户对象
       * @return   受影响的行数
       */
@@ -47,11 +49,18 @@ public interface UserMapper {
 
 	/**
 	 * 修改用户密码的方法
-	 * 
 	 * @param password 用户密码
 	 * @return
 	 */
-     int  updateUserPassword(String password,Integer id);
+     int  updateUserPassword(@Param("password")String password,@Param("userName")String userName);
+     
+     
+     /**
+      * 根据条件查询用户
+      * @return
+      */
+     List<User> selectUserByCondition();
+     
      
      int updateByPrimaryKey(User record);
 }

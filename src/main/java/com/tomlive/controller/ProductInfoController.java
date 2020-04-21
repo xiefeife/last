@@ -34,7 +34,6 @@ public class ProductInfoController {
 			return new JsonUtil("200", list, "查询成功");
 		}
 		return new JsonUtil("500", null, "查询失败");
-
 	}
 	
 	/**
@@ -57,7 +56,7 @@ public class ProductInfoController {
 	 * 查看多少产品信息的方法
 	 * @return  受影响的行数
 	 */
-	@SysLog(description="查看产品数量")
+	//@SysLog(description="查看产品数量")
 	@RequestMapping(value="selectProductInfoCount",method = RequestMethod.POST)
 	public JsonUtil   selectProductInfoCount() {
 	int  count= 	productInfoService.selectProductInfoCount();
@@ -65,7 +64,6 @@ public class ProductInfoController {
 		return new JsonUtil("200", count, "产品数量查询成功");
 	}
 	 return new JsonUtil("500", null, "产品数量查询失败");
-		
 	}
 	
 	
