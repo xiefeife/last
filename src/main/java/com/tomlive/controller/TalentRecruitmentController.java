@@ -42,6 +42,7 @@ public class TalentRecruitmentController {
 	 * @param talentRecruitment
 	 * @return  成功的json格式
 	 */
+	@SysLog(description="添加新闻中心")
 	@RequestMapping(value = "insertSelect", method = RequestMethod.POST)
 	public JsonUtil insertSelectTalentRecruitment(
 			@PathVariable("talentRecruitment") TalentRecruitment talentRecruitment) {
@@ -58,7 +59,7 @@ public class TalentRecruitmentController {
 	 * 统计岗位招聘的数量
 	 * @return 成功与否
 	 */
-	//@SysLog(description="查看新闻中心的次数")
+	@SysLog(description="查看新闻中心的次数")
 	@RequestMapping("selectTalentRecruitmentCount")
 	public JsonUtil selectTalentRecruitmentCount() {
 		
@@ -74,6 +75,7 @@ public class TalentRecruitmentController {
 	 * 统计每个岗位的招聘数量
 	 * @return
 	 */
+	@SysLog(description="根据新闻中心分组")
 	@RequestMapping(value="selectSizeGroupBy",method = RequestMethod.POST)
 	public JsonUtil selectSizeGroupBy() {
 		

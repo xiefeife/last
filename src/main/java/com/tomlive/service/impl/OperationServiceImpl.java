@@ -21,7 +21,7 @@ public class OperationServiceImpl implements OperationService{
 
 	
 	 /**
-     * 查看全部日志的方法
+               * 查看全部日志的方法
      * @return  
      */
 	@Override
@@ -41,5 +41,34 @@ public class OperationServiceImpl implements OperationService{
 		int   count   = operationMapper.insertSelective(operation);
 		return count>0?true:false;
 	}
+
+
+
+	/**
+	 * 根据条件查看日志信息
+	 * @param operationIp
+	 * @param operationContent
+	 * @param beginTime
+	 * @param endTime
+	 * @return
+	 */
+	@Override
+	public List<Operation> selectOperationByCondition(String operationIp, String operationContent, String beginTime,
+			String endTime) {
+		
+	     List<Operation> list   =operationMapper.selectOperationByCondition(operationIp, operationContent, beginTime, endTime);
+    if(null!=list) {
+    	return list;
+    }
+	
+	return 	null;
+	}
+	
+	
+	
+	
+
+	
+	
 
 }

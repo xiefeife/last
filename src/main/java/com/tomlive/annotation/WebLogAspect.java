@@ -82,7 +82,7 @@ public class WebLogAspect {
 		User user = (User) request.getSession().getAttribute("user_session");
 		System.out.println("登录的用户是" + user);
 		String description = getControllerMethodDescription(joinPoint);// 获取接口上注解的内容
-
+		
 		op.setOperationIp(request.getRemoteAddr());// 设置请求的ip
 		op.setOperationTime(dateUtil.createDate());
 		// 获取当前操作的时间
@@ -119,7 +119,7 @@ public class WebLogAspect {
 		Method[] methods = targetClass.getMethods();
 		String description = "";
 		for (Method method : methods) {
-			if (method.getName().equals(methodName)&&null!=method.getAnnotation(SysLog.class).description()) {
+			if (method.getName().equals(methodName)) {
 				description = method.getAnnotation(SysLog.class).description();
 				break;
 			}

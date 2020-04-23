@@ -1,6 +1,8 @@
 package com.tomlive.service;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tomlive.entity.User;
 /**
  *  用户业务逻辑层接口
@@ -32,22 +34,8 @@ public interface UserService {
 	 */
     boolean selectUserByUserName(String userName)throws Exception;
     
-	/**
-	 * 冻结或激活用户
-	 * @param param 数字0或者1
-	 * @return 受影响行数
-	 */
-   boolean updateUserStatus(int param )throws Exception;
-
-	/**
-	   * 根据用户id查看用户状态
-	 * @param id 被操作用户id
-	 * @return   成功与否
-	 */
-   boolean  selectStatusById(int id)throws Exception;
-   
-  /**
-   *   用户修改密码的方法
+   /**
+      *   用户修改密码的方法
    * @param password   密码
    * @param id  用户id
    * @return
@@ -57,8 +45,27 @@ public interface UserService {
    
 
    /**
-    * 根据条件查询用户
+          * 根据条件查询用户
     * @return
     */
-   List<User> selectUserByCondition() throws Exception;
+   List<User> selectUserByCondition(String realName,
+  		 String userName,Integer status) throws Exception;
+
+   boolean updateUserStatus( Integer id);
+
+
+   boolean  selectByPrimaryKey(Integer id);
+   
+   
+   List<User> selectAllUser();
+   
+   boolean  activeteUserStatus(Integer id);
+   
+   /**
+    * 根据主键id查看用户
+    * @param id
+    * @return
+    */
+   int     selectUserStatus(Integer id);
+   
 }

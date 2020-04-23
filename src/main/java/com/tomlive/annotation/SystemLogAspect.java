@@ -43,13 +43,13 @@ public class SystemLogAspect {
 	    }   
 	    
 	    /**  
-	     * 前置通知 用于拦截Controller层记录用户的操作  
+	            * 前置通知 用于拦截Controller层记录用户的操作  
 	     *  
 	     * @param joinPoint 切点  
 	     */    
 	     @Before("controllerAspect()")    
 	     public  void doBefore(JoinPoint joinPoint) {    
-	    
+	    	 try {  
 	        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
 	        
 	        //当前所在用户
@@ -70,7 +70,6 @@ public class SystemLogAspect {
 	           	 params+=joinPoint.getArgs()[i]+";";   
 	           }    
 	       }    
-	         try {    
 	            //*========控制台输出=========*//    
 	            System.out.println("=====前置通知开始=====");    
 	            String operation=getControllerMethodDescription(joinPoint);    
@@ -93,9 +92,8 @@ public class SystemLogAspect {
 	        }    
 	    } 
 	    
-	    
 	    /**  
-	     * 获取注解中对方法的描述信息 用于Controller层注解  
+	               * 获取注解中对方法的描述信息 用于Controller层注解  
 	     * @param joinPoint 切点  
 	     * @return 方法描述  
 	     * @throws Exception  

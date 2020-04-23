@@ -54,61 +54,8 @@
       #{userId,jdbcType=INTEGER}, #{creationTime,jdbcType=TIMESTAMP}, #{particulars,jdbcType=VARCHAR}, 
       #{pressSortid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tomlive.entity.PressCenter">
-    insert into press_center
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="photo != null">
-        photo,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="creationTime != null">
-        creation_time,
-      </if>
-      <if test="particulars != null">
-        particulars,
-      </if>
-      <if test="pressSortid != null">
-        press_sortId,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="photo != null">
-        #{photo,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="creationTime != null">
-        #{creationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="particulars != null">
-        #{particulars,jdbcType=VARCHAR},
-      </if>
-      <if test="pressSortid != null">
-        #{pressSortid,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
+  
+ 
   <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.PressCenter">
     update press_center
     <set>
@@ -167,10 +114,65 @@
         
   </select>
   
+      <!--  查看新闻中心的分类数量 -->
   <select id="selectPressCenterCount" resultType="java.lang.Integer">
   select count(*) from press_center 
   
   </select>
-  
+   <insert id="insertSelective" parameterType="com.tomlive.entity.PressCenter">
+    insert into press_center
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="user != null">
+        user,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="particulars != null">
+        particulars,
+      </if>
+      <if test="presssort != null">
+        press_sort,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null">
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="particulars != null">
+        #{particulars,jdbcType=VARCHAR},
+      </if>
+      <if test="presssort != null">
+        #{pressSort,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
   
 </mapper>

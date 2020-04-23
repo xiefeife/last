@@ -31,21 +31,23 @@ public interface UserMapper {
       * @param userName 注册的用户名
       * @return  受影响行数
       */
-     int selectUserByUserName(String userName);
+     User selectUserByUserName(String userName);
+     
      
      /**
-      * 冻结或激活用户
-      * @param param   数字0或者1
-      * @return   受影响行数
-      */
-     int updateUserStatus(int param );
+      * 激活用户
+* @param param   数字0或者1
+* @return   受影响行数
+*/
+     int activeteUserStatus(Integer id);
      
-     /**
-      * 根据用户id查看用户状态
-      * @param id  被操作用户id
-      * @return   受影响行数
-      */
-     int  selectStatusById(int id);
+	/**
+	 * 冻结用户
+	 * 
+	 * @param param 数字0或者1
+	 * @return 受影响行数
+	 */
+	int updateUserStatus(@Param("id") Integer id);
 
 	/**
 	 * 修改用户密码的方法
@@ -56,11 +58,25 @@ public interface UserMapper {
      
      
      /**
-      * 根据条件查询用户
+                * 根据条件查询用户
       * @return
       */
-     List<User> selectUserByCondition();
+     List<User> selectUserByCondition(@Param("realName")String realName,
+    		 @Param("userName")String userName,@Param("status")Integer status);
      
      
      int updateByPrimaryKey(User record);
+     
+     /**
+               * 根据id查看用户
+      * @param id
+      * @return
+      */
+     int  selectByPrimaryKey(Integer id);
+     
+     List<User> selectAllUser();
+     
+     int  selectUserStatus(Integer id);
+     
+     
 }

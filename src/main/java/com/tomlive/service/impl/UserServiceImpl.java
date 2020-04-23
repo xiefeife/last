@@ -2,6 +2,7 @@ package com.tomlive.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,32 +61,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean selectUserByUserName(String userName) {
 		
-	 int  count=  userMapper.selectUserByUserName(userName);
-		return count>0?true:false;
+	User user=  userMapper.selectUserByUserName(userName);
+	if (null != user) {
+		return true;
+	    }
+	return false;
 	}
 
-	/**
-	 * 冻结或激活用户
-	 * @param param 数字0或者1
-	 * @return 受影响行数
-	 */
-	@Override
-	public boolean updateUserStatus(int param) {
-	int count=  	userMapper.updateUserStatus(param);
-    return count>0?true:false;
-	}
 
-	  /**
-	* 根据用户id查看用户状态
-	* @param id  被操作用户id
-	* @return   成功与否
-	*/
-	@Override
-	public boolean selectStatusById(int id)  {
-  	 int count=userMapper.selectStatusById(id);
-  	 
-		return count>0?true:false;
-	}
+
+	
 	 /**
 	   *  用户修改密码的方法
 	   * @param password   密码
@@ -101,13 +86,61 @@ public class UserServiceImpl implements UserService {
 
 
     /**
-     * 根据条件查询用户
+         * 根据条件查询用户
      * @return
      */
 	@Override
-	public List<User> selectUserByCondition() {
+	public List<User> selectUserByCondition(String realName,
+   		 String userName,Integer status) {
 		
-		return userMapper.selectUserByCondition();
+		return userMapper.selectUserByCondition( realName,
+	    		 userName, status);
 	}
 
+	/**
+	 * 根据id查看用户
+	 */
+	@Override
+	public boolean selectByPrimaryKey(Integer id) {
+	int  count=	   userMapper.selectByPrimaryKey(id);
+		return count>0?true:false;
+	}
+	/**
+	 * 查看全部用户
+	 */
+	@Override
+	public List<User> selectAllUser() {
+	              
+		return userMapper.selectAllUser();
+	}
+
+	/**
+	 * 激活用户
+	 */
+	@Override
+	public boolean activeteUserStatus(Integer id) {
+	int  count=  userMapper.activeteUserStatus(id);
+		return count>0?true:false;
+	}
+
+	
+	/**
+	 *     冻结用户
+	 * @param param 数字0或者1
+	 * @return 受影响行数
+	 */
+	@Override
+	public boolean updateUserStatus(Integer id) {
+		int  count=		userMapper.updateUserStatus(id);
+			
+		return count>0?true:false;
+		
+	}
+
+	@Override
+	public int selectUserStatus(Integer id) {
+	int  number= userMapper.selectUserStatus(id);
+    return  number;
+	
+	}
 }

@@ -2,6 +2,8 @@ package com.tomlive.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tomlive.entity.Operation;
 
 /**
@@ -24,4 +26,21 @@ public interface OperationService {
 	 * @return  成功与否
 	 */
 	boolean insertSelective(Operation operation);
+	
+	
+	
+	
+	/**
+	 * 根据条件查看日志信息
+	 * @param operationIp
+	 * @param operationContent
+	 * @param beginTime
+	 * @param endTime
+	 * @return
+	 */
+	List<Operation> selectOperationByCondition(String operationIp,
+	String operationContent,String beginTime,
+	String endTime);
+	
+	
 }

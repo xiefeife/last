@@ -9,17 +9,28 @@ public class PressCenter {
 
     private String title;
 
+    /**
+     *新闻添加人
+     */
     private User user;
 
     private Date creationTime;
 
+    /**
+     * 新闻详情
+     */
     private String particulars;
 
     private PressSort presssort;
     
     private Integer status;
+    
 
-    public PressSort getPresssort() {
+    public PressCenter() {
+		super();
+	}
+
+	public PressSort getPresssort() {
 		return presssort;
 	}
 
@@ -62,8 +73,21 @@ public class PressCenter {
     }
 
     
+                                                                                 //详情
+    public PressCenter(String photo, String title, User user, Date creationTime, String particulars,
+			PressSort presssort, Integer status, String content) {
+		super();
+		this.photo = photo;
+		this.title = title;
+		this.user = user;
+		this.creationTime = creationTime;
+		this.particulars = particulars;
+		this.presssort = presssort;
+		this.status = status;
+		this.content = content;
+	}
 
-    public User getUser() {
+	public User getUser() {
 		return user;
 	}
 

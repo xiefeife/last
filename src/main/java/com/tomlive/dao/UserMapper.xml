@@ -7,9 +7,10 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="status" jdbcType="INTEGER" property="status" />
+     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_name, password, real_name, status
+    id, user_name, password, real_name, status,create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,12 +22,7 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tomlive.entity.User">
-    insert into user (id, user_name, password, 
-      real_name, status)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
-  </insert>
+  
    <!-- 添加用户sql语句 -->
   <insert id="insertSelective" parameterType="com.tomlive.entity.User">
     insert into user
@@ -46,6 +42,9 @@
       <if test="status != null">
         status,
       </if>
+       <if test="createTime != null">
+        create_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -63,9 +62,13 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
+       <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.User">
+  
+  <!-- <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.User">
     update user
     <set>
       <if test="userName != null">
@@ -90,7 +93,7 @@
       real_name = #{realName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
-  </update>
+  </update> -->
   
        <!--  自定义登录语句 -->
   <select id="login" resultMap="BaseResultMap">
@@ -101,20 +104,21 @@
   </select>
  
  <!--  根据用户名查看用户 -->
- <select id="selectUserByUserName"    resultMap="BaseResultMap">
-   select user_name form user where user_name=#{userName}
+ <select id="selectUserByUserName"    resultType="com.tomlive.entity.User">
+   select * from user where user_name =#{userName}
  </select>
  
-   <!--  根据用户名id查看用户状态 -->
-   <select id="selectStatusById" resultMap="BaseResultMap">
-   select status from user where id=#{id}
-   </select>
-  
   
  <!-- 冻结用户 -->
  <update id="updateUserStatus" parameterType="com.tomlive.entity.User">
-    update  user  set   status=#{param}
+    update  user  set   status=0  where id=#{id}
  </update>
+  
+<!-- 激活用户 -->
+   <update id="activeteUserStatus" parameterType="com.tomlive.entity.User">
+    update  user  set   status=1  where id=#{id}
+ </update>
+  
   
   <!--  修改用户密码 -->
   <update id="updateUserPassword" parameterType="com.tomlive.entity.User">
@@ -126,18 +130,29 @@
     select  id, user_name, password, real_name, status
     from  user 
   <where>
-  	<if test="userName != null">
+   <if test=" null !=realName and realName!=''">
+       and real_name=#{realName}               
+      </if>
+      <if test="null !=userName and userName!=''">
        and user_name=#{userName}               
       </if>
-     <if test="status != null">
+       <if test="status != null and status!=''">
        and status=#{status}               
-      </if>
-     <if test="realName != null">
-       and real_name=#{realName}               
       </if>
   </where>
   </select>
   
+  <!-- 查看所有用户 -->
+  <select id="selectAllUser" resultMap="BaseResultMap">
+  select  id, user_name, password, real_name, status,create_time
+  from user  
+  </select>
+  
+    <!-- 根据id查看状态 -->
+  <select id="selectUserStatus"   resultType="java.lang.Integer">
+  select  status
+  from user  where  id=#{id}  
+  </select>
   
   
 </mapper>

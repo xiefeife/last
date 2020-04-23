@@ -6,6 +6,15 @@ public class User {
     public User() {
 		super();
     }
+    private Date createTime;
+    
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	private Integer id;
 
 	private String userName;
@@ -58,18 +67,21 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", realName=" + realName
-				+ ", status=" + status + "]";
+		return "User [createTime=" + createTime + ", id=" + id + ", userName=" + userName + ", password=" + password
+				+ ", realName=" + realName + ", status=" + status + "]";
 	}
 
-	public User(String userName, String password, String realName, Integer status) {
+	public User(Date createTime, String userName, String password, String realName, Integer status) {
 		super();
+		this.createTime = createTime;
 		this.userName = userName;
 		this.password = password;
 		this.realName = realName;
 		this.status = status;
 	}
 
+	
+	
 
 
 }

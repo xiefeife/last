@@ -29,6 +29,7 @@ public class ProductInfoController {
 	@SysLog(description="查看产品详情")
 	@RequestMapping(value = "selectAllProductInfo", method = RequestMethod.POST)
 	public JsonUtil selectAllProductInfo() {
+		System.out.println("**********************************************************");
 		List<ProductInfo> list = productInfoService.selectAllProductInfo();
 		if (null != list) {
 			return new JsonUtil("200", list, "查询成功");
@@ -56,7 +57,7 @@ public class ProductInfoController {
 	 * 查看多少产品信息的方法
 	 * @return  受影响的行数
 	 */
-	//@SysLog(description="查看产品数量")
+	@SysLog(description="查看产品数量")
 	@RequestMapping(value="selectProductInfoCount",method = RequestMethod.POST)
 	public JsonUtil   selectProductInfoCount() {
 	int  count= 	productInfoService.selectProductInfoCount();
