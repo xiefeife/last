@@ -17,10 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.druid.support.json.JSONParser;
 import com.alibaba.fastjson.JSON;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
 import com.tomlive.annotation.SysLog;
 import com.tomlive.entity.ProductInfo;
 import com.tomlive.service.ProductInfoService;
@@ -203,7 +199,7 @@ public class ProductInfoController {
 	@RequestMapping(value = "/updateByPrimaryKeySelective", method = RequestMethod.POST)
 	public JsonUtil updateByPrimaryKeySelective(@RequestParam Map<String, String> map,
 			@RequestParam("file") MultipartFile file)
-			throws UniformInterfaceException, ClientHandlerException, IOException {
+			throws  IOException {
 		System.out.println("%%%%%%%%%%%%%%map" + map);
 		System.out.println("file" + file);
 		
@@ -220,7 +216,7 @@ public class ProductInfoController {
 	@SysLog(description = "修改产品信息,不带图片修改")
 	@RequestMapping(value = "/updateByPrimaryKeySelective1", method = RequestMethod.POST)
 	public JsonUtil updateByPrimaryKeySelective1(@RequestParam Map<String, String> map)
-			throws UniformInterfaceException, ClientHandlerException, IOException {
+			throws  IOException {
 		System.out.println("%%%%%%%%%%%%%%map" + map);
 		map.put("status", "1");//0 表示未发布  1表示发布
 		boolean success = productInfoService.updateByPrimaryKeySelective(map);

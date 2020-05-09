@@ -8,10 +8,6 @@ import java.util.UUID;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
 
 public class UploadFile {
 	
@@ -25,7 +21,7 @@ public class UploadFile {
 	 * @throws ClientHandlerException
 	 * @throws IOException
 	 */
-    public  static String upload(@RequestParam("file")MultipartFile file) throws UniformInterfaceException, ClientHandlerException, IOException {
+    public  static String upload(@RequestParam("file")MultipartFile file) throws IOException {
 
     	//获取文件存储绝对路径
     	String path1="C:\\Program Files\\Java\\tomcat-tomlive\\tomlive\\imgs";

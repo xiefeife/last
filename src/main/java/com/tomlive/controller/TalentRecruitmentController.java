@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
+
 import com.tomlive.annotation.SysLog;
 import com.tomlive.entity.TalentRecruitment;
 import com.tomlive.service.TalentRecruitmentService;
@@ -135,7 +134,7 @@ public class TalentRecruitmentController {
 	@SysLog(description = "修改岗位信息,岗位发布")
 	@RequestMapping(value = "/updateByPrimaryKeySelective", method = RequestMethod.POST)
 	public JsonUtil updateByPrimaryKeySelective(@RequestParam Map<String, String> map)
-			throws UniformInterfaceException, ClientHandlerException, IOException {
+			throws  IOException {
 		map.put("status", "1");//添加新闻的状态
 		boolean success = talentRecruitmentService.updateByPrimaryKeySelective(map);
 		if (success) {
@@ -147,7 +146,7 @@ public class TalentRecruitmentController {
 	@SysLog(description = "修改岗位信息,岗位保存")
 	@RequestMapping(value = "/updateByPrimaryKeyStatus", method = RequestMethod.POST)
 	public JsonUtil updateByPrimaryKeyStatus(@RequestParam Map<String, String> map)
-			throws UniformInterfaceException, ClientHandlerException, IOException {
+			throws IOException {
 	
 		map.put("status", "0");//添加新闻的状态
 		boolean success = talentRecruitmentService.updateByPrimaryKeySelective(map);

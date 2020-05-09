@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
+
 import com.tomlive.annotation.SysLog;
 import com.tomlive.entity.PressCenter;
 import com.tomlive.service.PressCenterService;
@@ -93,8 +90,6 @@ public class PressCenterController {
 	@RequestMapping(value = "/noIssueSelectPressCenter", consumes = "multipart/form-data")
 	public JsonUtil noIssueSelectPressCenter(@RequestParam Map<String, String> map, 
 			@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		System.out.println("@@@@@@@@@@@@@@@@@@map" + map);
-	
 		
 		map.put("photo", UploadFile.upload(file));// 照片地址
 		map.put("status", "0");// 新闻状态
@@ -105,7 +100,6 @@ public class PressCenterController {
 		if (choose) {
 			return new JsonUtil("200", null, "添加新闻中心的方法成功");
 		}
-
 		return new JsonUtil("500", null, "添加新闻中心的方法是吧");
 	}
 	
@@ -151,7 +145,7 @@ public class PressCenterController {
 	@RequestMapping(value = "/updateByPrimaryKeySelective", method = RequestMethod.POST)
 	public JsonUtil updateByPrimaryKeySelective(@RequestParam Map<String, String> map,
 			@RequestParam("file") MultipartFile file)
-			throws UniformInterfaceException, ClientHandlerException, IOException {
+			throws  IOException {
 	
 		
 		map.put("photo", UploadFile.upload(file));// 照片地址
@@ -176,7 +170,7 @@ public class PressCenterController {
 	@SysLog(description = "修改新闻信息不带文件上传")
 	@RequestMapping(value = "/updateNoFile", method = RequestMethod.POST)
 	public JsonUtil updateNoFile(@RequestParam Map<String, String> map)
-			throws UniformInterfaceException, ClientHandlerException, IOException {
+			throws IOException {
 		map.put("status", "1");// 新闻状态
 		map.put("creationTime", DateUtil.getNowDate());// 创建时间
 		map.put("pressTypeId", map.get("pressTypeId"));// 新闻版块 分类

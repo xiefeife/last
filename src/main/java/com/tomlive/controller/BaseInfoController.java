@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
+
 import com.tomlive.entity.BaseInfo;
 import com.tomlive.service.BaseInfoService;
 import com.tomlive.util.DateUtil;
@@ -87,7 +86,6 @@ public class BaseInfoController {
 		public JsonUtil companyPhilosophy(@RequestParam Map<String, String> map,
 				@RequestParam("companyPhilosophy") MultipartFile companyPhilosophy
 				) throws Exception {
-			System.out.println("(((((((((((((((map" + map);
 			
 			 map.put("companyPhilosophy", UploadFile.upload(companyPhilosophy));
 			 map.put("creationTime", DateUtil.getNowDate());// 创建时间
@@ -106,9 +104,7 @@ public class BaseInfoController {
 				@RequestParam("companyAptitude") MultipartFile[] companyAptitude
 				) throws Exception {
 	     List<String> list=new ArrayList<String>();
-	     
 	    for (MultipartFile file : companyAptitude) {
-	      
 	      list.add(UploadFile.upload(file)+",");
 	    }
 	    String end1="";
