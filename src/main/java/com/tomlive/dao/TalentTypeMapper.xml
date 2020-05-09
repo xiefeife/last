@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tomlive.dao.TalentTypeMapper">
+  <resultMap id="BaseResultMap" type="com.tomlive.entity.TalentType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+
+<!-- 查看全部岗位类型 -->
+    <select id="selectAllTalentType" resultType="com.tomlive.util.TalentRecruitmentUtil">
+    select 
+    e.id,type_name  as typeName,e.create_time as createTime , u.real_name as realName,user_name  as userName,e.create_time as creationTime
+   from talent_type e
+   left join    user  u  on e.user_id=u.id
+    </select>
+
+  
+    <!-- 查询每个岗位数量 -->
+   <select id="selectSizeGroupBy" resultType="com.tomlive.util.TalentRecruitmentUtil">
+       select   type_name as typeName,count(*) as count   from  talent_type  group by  type_name
+  </select>
+  
+        <!-- 删除岗位 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from talent_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <!--   添加岗位类型 -->
+  <insert id="insertSelective" parameterType="java.util.Map">
+    insert into talent_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="'' != typeName and typeName != null">
+        type_name,
+      </if>
+      <if test="'' != userId and userId != null">
+        user_id,
+      </if>
+      <if test="creationTime != null">
+        create_time,
+      </if>                
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+      <!-- 根据主键有选择的修改岗位 -->
+  <update id="updateByPrimaryKeySelective" parameterType="java.util.Map">
+    update talent_type
+    <set>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    
+    
+    
+</mapper>
