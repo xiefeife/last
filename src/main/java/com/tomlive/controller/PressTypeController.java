@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tomlive.annotation.SysLog;
-import com.tomlive.dao.PressTypeMapper;
 import com.tomlive.entity.PressType;
 import com.tomlive.service.PressTypeService;
 import com.tomlive.util.DateUtil;

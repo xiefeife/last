@@ -75,7 +75,6 @@ public class ProductInfoController {
 	@RequestMapping(value="selectProductInfoByCondition",method = RequestMethod.POST)
 	public JsonUtil  selectProductInfoByCondition(@RequestParam Map<String, String> map) {
 		List<ProductInfo>	list= productInfoService.selectProductInfoByCondition(map);
-		System.out.println(map.get("productTypeId"));
 		if(null!=list) {
 			return new JsonUtil("200", list, "产品数量查询成功");
 		}
