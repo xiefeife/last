@@ -111,14 +111,14 @@
   
                   <!-- 根据条件查询用户 -->
   <select id="selectUserByCondition" resultMap="BaseResultMap">
-    select  id, user_name, password, real_name, status
+    select  id, user_name, password, real_name, status,create_time
     from  user 
   <where>
    <if test=" null !=realName and realName!=''">
-       and real_name=#{realName}               
+       and real_name  like concat  ("%",#{realName},"%")                 
       </if>
       <if test="null !=userName and userName!=''">
-       and user_name=#{userName}               
+       and user_name  like concat  ("%",#{userName},"%")                
       </if>
        <if test="status != null and '' != status ">
        and status=#{status}               

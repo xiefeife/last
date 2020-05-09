@@ -116,35 +116,10 @@ public class ProductInfoController {
 			@RequestParam("file") MultipartFile file,
 			@RequestParam("productParameters") MultipartFile productParameters,
 			@RequestParam("productExternal") MultipartFile productExternal) throws IllegalStateException, IOException {
-		 String path="http://39.106.50.89:8011/images/"; 
-	   	 
-	   	   //获取上传文件的名称
-	   	   String fileName1 = productParameters.getOriginalFilename(); 
-	   	   String end1=path+fileName1;
-	   	   
-	   	    //创建客户端对象
-	         Client client1 = Client.create();
-	         //和图片服务器进行连接
-	         WebResource webResource1 = client1.resource(path+fileName1);
-	         //上传文件
-	        webResource1.put(productParameters.getBytes());
-		
-	       
-	      	 
-	    	   //获取上传文件的名称
-	    	   String fileName2 = productExternal.getOriginalFilename(); 
-	    	   String end2=path+fileName2;
-	    	   
-	    	    //创建客户端对象
-	          Client client2 = Client.create();
-	          //和图片服务器进行连接
-	          WebResource webResource2 = client2.resource(path+fileName2);
-	          //上传文件
-	         webResource2.put(productExternal.getBytes());
 		
 		
-		map.put("productExternal", end2);// 照片地址
-		map.put("productParameters", end1);// 照片地址
+		map.put("productExternal", UploadFile.upload(productExternal));// 照片地址
+		map.put("productParameters", UploadFile.upload(productParameters));// 照片地址
 		
 		
 		map.put("photo", UploadFile.upload(file));// 照片地址

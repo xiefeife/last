@@ -23,6 +23,7 @@ import com.tomlive.entity.PressCenter;
 import com.tomlive.service.PressCenterService;
 import com.tomlive.util.DateUtil;
 import com.tomlive.util.JsonUtil;
+import com.tomlive.util.UploadFile;
 
 /**
  * 新闻中心控制层
@@ -67,13 +68,8 @@ public class PressCenterController {
 	@RequestMapping(value = "/insertSelectPressCenter", consumes = "multipart/form-data")
 	public JsonUtil insertSelectPressCenter(@RequestParam Map<String, String> map,
 			@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
-		     String path="http://39.106.50.89:8011/images/"; 
-	   	     String fileName = file.getOriginalFilename(); 
-	   	     String end=path+fileName;
-	         Client client = Client.create();
-	         WebResource webResource = client.resource(path+fileName);
-	         webResource.put(file.getBytes());
-	    map.put("photo", end);// 照片地址
+	  
+		map.put("photo", UploadFile.upload(file));// 照片地址
 		map.put("status", "1");// 新闻状态
 		map.put("creationTime", DateUtil.getNowDate());// 创建时间
 		map.put("TypeId", map.get("pressTypeId"));// 新闻版块 分类
@@ -98,14 +94,9 @@ public class PressCenterController {
 	public JsonUtil noIssueSelectPressCenter(@RequestParam Map<String, String> map, 
 			@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
 		System.out.println("@@@@@@@@@@@@@@@@@@map" + map);
-		String path = "http://39.106.50.89:8011/images/";
-		String fileName = file.getOriginalFilename();
-		String end = path + fileName;
-		Client client = Client.create();
-		WebResource webResource = client.resource(path + fileName);
-		webResource.put(file.getBytes());
-		System.out.println("#############################用户的状态是"+map.get("status"));
-		map.put("photo", end);// 照片地址
+	
+		
+		map.put("photo", UploadFile.upload(file));// 照片地址
 		map.put("status", "0");// 新闻状态
 		map.put("creationTime", DateUtil.getNowDate());// 创建时间
 		map.put("pressTypeId", map.get("pressTypeId"));// 新闻版块 分类
@@ -161,15 +152,9 @@ public class PressCenterController {
 	public JsonUtil updateByPrimaryKeySelective(@RequestParam Map<String, String> map,
 			@RequestParam("file") MultipartFile file)
 			throws UniformInterfaceException, ClientHandlerException, IOException {
-		System.out.println("%%%%%%%%%%%%%%map" + map);
-		System.out.println("file" + file);
-		String path="http://39.106.50.89:8011/images/"; 
-	   	   String fileName = file.getOriginalFilename(); 
-	   	   String end=path+fileName;
-	         Client client = Client.create();
-	         WebResource webResource = client.resource(path+fileName);
-	        webResource.put(file.getBytes());
-		map.put("photo", end);// 照片地址
+	
+		
+		map.put("photo", UploadFile.upload(file));// 照片地址
 		map.put("status", "1");// 新闻状态
 		map.put("creationTime", DateUtil.getNowDate());// 创建时间
 		map.put("pressTypeId", map.get("pressTypeId"));// 新闻版块 分类
@@ -192,7 +177,6 @@ public class PressCenterController {
 	@RequestMapping(value = "/updateNoFile", method = RequestMethod.POST)
 	public JsonUtil updateNoFile(@RequestParam Map<String, String> map)
 			throws UniformInterfaceException, ClientHandlerException, IOException {
-		System.out.println("%%%%%%%%%%%%%%map" + map);
 		map.put("status", "1");// 新闻状态
 		map.put("creationTime", DateUtil.getNowDate());// 创建时间
 		map.put("pressTypeId", map.get("pressTypeId"));// 新闻版块 分类
@@ -234,12 +218,6 @@ public class PressCenterController {
 		return new JsonUtil("500", null, "状态修改失败");
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 	

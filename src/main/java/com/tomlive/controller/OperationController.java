@@ -57,11 +57,6 @@ public class OperationController {
 			@RequestParam(value="operationContent",required = false) String operationContent,@RequestParam(value="beginTime",required = false) String beginTime,
 			@RequestParam(value="endTime",required = false) String endTime) {
 		
-		System.out.println("****************operationIp"+operationIp);
-		System.out.println("****************operationContent"+operationContent);
-		System.out.println("****************endTime"+endTime);
-		System.out.println("****************beginTime"+beginTime);
-		
    List<Operation>  list=	operationMapper.selectOperationByCondition(operationIp, operationContent, beginTime, endTime);
 		if(null!=list) {
 			return new JsonUtil("200", list, "查看日志信息成功");

@@ -51,7 +51,6 @@ public class TalentTypeController {
 	@SysLog(description="添加岗位类型")
 	@RequestMapping("/insertSelectTalentType")
 	public  JsonUtil   insertSelectTalentType(@RequestParam Map<String, String> map ) throws IllegalStateException, IOException {
-     System.out.println("((((((((((((ProductType"+map);
      map.put("userId",map.get("userId"));
      map.put("creationTime",DateUtil.getNowDate() );
      map.put("param", "备注");

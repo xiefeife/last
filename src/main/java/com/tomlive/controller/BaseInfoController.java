@@ -64,17 +64,6 @@ public class BaseInfoController {
 		return new JsonUtil("500", null, "公司基本信息保存失败");
 	}
 	
-//	String fileName = companyPhilosophy.getOriginalFilename();
-//	String end = path + fileName;
-//	WebResource webResource = client.resource(path + fileName);
-//	webResource.put(companyPhilosophy.getBytes());
-//
-//	String fileName2 = companyDevelopment.getOriginalFilename();
-//	String end2 = path + fileName2;
-//	Client client2 = Client.create();
-//	WebResource webResource2 = client2.resource(path + fileName);
-//	webResource2.put(companyDevelopment.getBytes());
-	
 	
 	//这个是companyDevelopment的接口
 	@RequestMapping( "/companyDevelopment")
@@ -116,19 +105,11 @@ public class BaseInfoController {
 		public JsonUtil companyAptitude(@RequestParam Map<String, String> map,
 				@RequestParam("companyAptitude") MultipartFile[] companyAptitude
 				) throws Exception {
-			Client client = Client.create();
-			String path = "http://39.106.50.89:8011/images/";
-			System.out.println(companyAptitude);
 	     List<String> list=new ArrayList<String>();
+	     
 	    for (MultipartFile file : companyAptitude) {
-	      //原始的文件名
-	    String originalFilename = file.getOriginalFilename();
-	     //绝对路径（另一台服务器文件路径）
-	     String fullPath=path+originalFilename;
-	     list.add(fullPath+",");
-	     //将文件传入文件服务器
-	     WebResource webResource1 = client.resource(fullPath);
-	      webResource1.put(file.getBytes());
+	      
+	      list.add(UploadFile.upload(file)+",");
 	    }
 	    String end1="";
 	    for(int i = 0;i < list.size(); i ++){

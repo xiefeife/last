@@ -70,7 +70,7 @@ public class TalentRecruitmentController {
 	@SysLog(description="根据条件查询")
 	@RequestMapping(value="/selectTalentRecruitmentByCondition",method = RequestMethod.POST)
 	public  JsonUtil  selectTalentRecruitmentByCondition(@RequestParam Map<String, String> map) {
-		System.out.println("^^^^^^^^^^^^^^^^^map"+map);
+		
 		List<TalentRecruitment> list=  talentRecruitmentService.selectTalentRecruitmentByCondition(map);		
 				if(null!=list) {
 	          return   new  JsonUtil("200", list, "新闻数量查询成功");
@@ -148,7 +148,7 @@ public class TalentRecruitmentController {
 	@RequestMapping(value = "/updateByPrimaryKeyStatus", method = RequestMethod.POST)
 	public JsonUtil updateByPrimaryKeyStatus(@RequestParam Map<String, String> map)
 			throws UniformInterfaceException, ClientHandlerException, IOException {
-		System.out.println("%%%%%%%%%%%%%%map" + map);
+	
 		map.put("status", "0");//添加新闻的状态
 		boolean success = talentRecruitmentService.updateByPrimaryKeySelective(map);
 		if (success) {
