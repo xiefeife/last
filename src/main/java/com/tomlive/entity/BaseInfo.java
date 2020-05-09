@@ -12,10 +12,76 @@ public class BaseInfo {
     private String email;
 
     private String busRoute;
+   private  String companyAptitude;
+   private  String address;
+   private Date creationTime;
+   
+   private  String companyProfile; 
+   private  String companyVision; 
+   private  String companyPhilosophy; 
+   private  String companyDevelopment; 
+   private  String  enterpriseCulture;
+   
+   
+   
+    public String getEnterpriseCulture() {
+	return enterpriseCulture;
+}
 
-    private Date creationTime;
+public void setEnterpriseCulture(String enterpriseCulture) {
+	this.enterpriseCulture = enterpriseCulture;
+}
 
-    public Integer getId() {
+	public String getCompanyProfile() {
+	return companyProfile;
+}
+
+public void setCompanyProfile(String companyProfile) {
+	this.companyProfile = companyProfile;
+}
+
+public String getCompanyVision() {
+	return companyVision;
+}
+
+public void setCompanyVision(String companyVision) {
+	this.companyVision = companyVision;
+}
+
+public String getCompanyPhilosophy() {
+	return companyPhilosophy;
+}
+
+public void setCompanyPhilosophy(String companyPhilosophy) {
+	this.companyPhilosophy = companyPhilosophy;
+}
+
+public String getCompanyDevelopment() {
+	return companyDevelopment;
+}
+
+public void setCompanyDevelopment(String companyDevelopment) {
+	this.companyDevelopment = companyDevelopment;
+}
+
+	public String getCompanyAptitude() {
+	return companyAptitude;
+}
+
+public void setCompanyAptitude(String companyAptitude) {
+	this.companyAptitude = companyAptitude;
+}
+
+
+    public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Integer getId() {
         return id;
     }
 

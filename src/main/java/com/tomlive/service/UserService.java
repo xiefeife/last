@@ -1,5 +1,6 @@
 package com.tomlive.service;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +25,7 @@ public interface UserService {
       * @param user  用户对象
       * @return   添加成功与否
       */
-	 boolean  insertSelective(User  user)throws Exception;
+	 boolean  insertSelective(Map<String, String> map)throws Exception;
 	 
 	 
 	 /**
@@ -51,15 +52,28 @@ public interface UserService {
    List<User> selectUserByCondition(String realName,
   		 String userName,Integer status) throws Exception;
 
-   boolean updateUserStatus( Integer id);
+  
 
 
    boolean  selectByPrimaryKey(Integer id);
    
    
+    boolean  deleteByPrimaryKey(Integer id);
+   
+   
    List<User> selectAllUser();
    
+   
+   /**
+    * 激活用户
+    * @param id
+    * @return
+    */
    boolean  activeteUserStatus(Integer id);
+   /*
+    * 冻结用户
+    */
+   boolean updateUserStatus( Integer id);
    
    /**
     * 根据主键id查看用户
@@ -67,5 +81,7 @@ public interface UserService {
     * @return
     */
    int     selectUserStatus(Integer id);
+   
+   boolean  updateUserRealNaem(Map<String, Object> map);
    
 }

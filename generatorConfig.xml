@@ -35,12 +35,13 @@
 		</javaClientGenerator>
 
 		
-	  <table tableName="press_center" domainObjectName="PressCenter"
+	  <table tableName="product_type" domainObjectName="ProductType"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 		</table>
 		
+	  
 		
 		
   </context>

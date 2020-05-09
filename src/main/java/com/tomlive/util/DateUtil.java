@@ -1,10 +1,8 @@
 package com.tomlive.util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -14,6 +12,18 @@ import java.util.UUID;
  * 2020年4月17日
  */
 public class DateUtil {
+	
+
+	/**
+	 * 返回当前日期的字符串表示
+	 * YYYY-MM-DD HH:mm:ss
+	 * @return 当前日期的字符串表示
+	 */
+	public static String getNowDate(){
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+	}
+	
+	
 	
 	
 	 /**
@@ -33,18 +43,9 @@ public class DateUtil {
         return uuid.toString().substring(5, 25);
     }
 	
-	
-	
-	
-	/**
-	 * 返回当前日期的字符串表示
-	 * YYYY-MM-DD
-	 * @return 当前日期的字符串表示
-	 */
-	public static String getNowDate(){
-		return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	}
-	
+   
+  
+  
 	/**
 	 * 返回当前的年和月时间
 	 * @return：

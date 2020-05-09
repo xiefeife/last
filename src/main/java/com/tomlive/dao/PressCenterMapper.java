@@ -1,6 +1,9 @@
 package com.tomlive.dao;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.tomlive.entity.PressCenter;
 /**
@@ -15,8 +18,7 @@ public interface PressCenterMapper {
     * @param record �? 新闻中心的对�?
     * @return   受影响的行数
     */
-    int insertSelective(PressCenter record);
-
+    int insertSelective(Map<String, String> record);
    
 
     /**
@@ -27,8 +29,6 @@ public interface PressCenterMapper {
     int updateByPrimaryKeySelective(PressCenter record);
 
 
-    int updateByPrimaryKey(PressCenter record);
-    
     /**
                 * 查看所有新闻中心的方法
      * @return
@@ -40,4 +40,48 @@ public interface PressCenterMapper {
      * @return
      */
     int selectPressCenterCount();
+       
+         /**
+                    *   撤回新闻
+          * @param id
+          * @return
+          */
+    int updatePressCenterStatus(Integer id);
+    
+    
+    /**
+     * 发布新闻
+     * @param id
+     * @return
+     */
+    int  activetePressCenterStatus(Integer id);
+    
+    /**
+     * 根据id查看新闻状态
+     * @param id
+     * @return
+     */
+    int selectPressCenterStatus(Integer id);
+     /**
+      * 根据条件查看新闻的方法
+      * @param title
+      * @param plate
+      * @param beginTime
+      * @param endTime
+      * @param userName
+      * @return
+      */
+    List<PressCenter> selectPressCenterByCondition(Map<String, String> map);
+    
+    
+    int deleteByPrimaryKey(Integer id);
+   
+     
+     /**
+                  * 修改新闻详情的方法
+      * @param map
+      * @return
+      */
+    int   updateByPrimaryKeySelective(Map<String, String> map);
+    		
 }

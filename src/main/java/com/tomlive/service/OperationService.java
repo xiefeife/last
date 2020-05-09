@@ -28,8 +28,6 @@ public interface OperationService {
 	boolean insertSelective(Operation operation);
 	
 	
-	
-	
 	/**
 	 * 根据条件查看日志信息
 	 * @param operationIp

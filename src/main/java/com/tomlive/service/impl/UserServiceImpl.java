@@ -1,6 +1,7 @@
 package com.tomlive.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class UserServiceImpl implements UserService {
 	 * @return 添加成功与否
 	 */
 	@Override
-	public boolean insertSelective(User user) {
+	public boolean insertSelective(Map<String, String> map) {
 
-		int count = userMapper.insertSelective(user);
+		int count = userMapper.insertSelective(map);
 
 		return count > 0 ? true : false;
 	}
@@ -142,5 +143,20 @@ public class UserServiceImpl implements UserService {
 	int  number= userMapper.selectUserStatus(id);
     return  number;
 	
+	}
+
+	@Override
+	public boolean deleteByPrimaryKey(Integer id) {
+	 int count=	userMapper.deleteByPrimaryKey(id);
+	 
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean updateUserRealNaem(Map<String, Object> map) {
+		
+	int count=	userMapper.updateUserRealNaem(map);
+		
+	return count>0?true:false;
 	}
 }

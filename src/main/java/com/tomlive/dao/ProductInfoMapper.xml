@@ -5,23 +5,41 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-
+    <result column="product_trait" jdbcType="VARCHAR" property="productTtention" />
+    <result column="product_parameters" jdbcType="VARCHAR" property="productParameters" />
+    <result column="product_external" jdbcType="VARCHAR" property="productExternal" />
+    <result column="product_order" jdbcType="VARCHAR" property="productOrder" />
+    <result column="product_attention" jdbcType="VARCHAR" property="productAttention" />
     <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
-     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="product_type" jdbcType="VARCHAR" property="productType" />
-     <result column="context" jdbcType="VARCHAR" property="context" />
-   
-    <association property="user" javaType="com.tomlive.entity.User"> 
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    
+       <!-- 产品类型实体类 -->
+    <association  property="productTypeId" javaType="com.tomlive.entity.ProductType">
+  <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    </association>
+    
+      <association  property="user" javaType="com.tomlive.entity.User">
+     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="status" jdbcType="INTEGER" property="status" />
+     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     </association>
   </resultMap>
-  <!-- <insert id="insertSelective" parameterType="com.tomlive.entity.ProductInfo">
+  
+ 
+  
+ 
+  
+    <!--  有选择的添加产品信息 -->
+ <insert id="insertSelective" parameterType="java.util.Map">
     insert into product_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -30,11 +48,17 @@
       <if test="photo != null">
         photo,
       </if>
-      <if test="title != null">
-        title,
+       <if test="status != null">
+        status,
+      </if>
+       <if test="name   != null">
+        name,
       </if>
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="productTypeId != null">
+        product_typeId,
       </if>
       <if test="creationTime != null">
         creation_time,
@@ -48,6 +72,21 @@
       <if test="context != null">
         context,
       </if>
+      <if test="productAttention != null">
+        product_trait,
+      </if>
+      <if test="productParameters != null">
+        product_parameters,
+      </if>
+      <if test="productExternal != null">
+        product_external,
+      </if>
+      <if test="productOrder != null">
+        product_order,
+      </if>
+      <if test="productAttention != null">
+        product_attention,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -56,11 +95,17 @@
       <if test="photo != null">
         #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+        <if test="status  !=''  and status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+        <if test="name != null">
+         #{name,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productTypeId  != ''  and productTypeId != null">
+        #{productTypeId,jdbcType=INTEGER},
       </if>
       <if test="creationTime != null">
         #{creationTime,jdbcType=TIMESTAMP},
@@ -74,54 +119,146 @@
       <if test="context != null">
         #{context,jdbcType=LONGVARCHAR},
       </if>
+        <if test="productAttention != null">
+         #{productAttention,jdbcType=VARCHAR},
+      </if>
+      <if test="productParameters != null">
+         #{productParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="productExternal != null">
+         #{productExternal,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrder != null">
+        #{productOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="productAttention != null">
+         #{productAttention,jdbcType=VARCHAR},
+      </if>      
     </trim>
-  </insert> -->
+  </insert>
 
- 
-  
+   <!-- 删除产品信息操作 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
 
-
-
-   <!--查看全部产品信息的方法  -->
-  <select id="selectAllProductInfo" resultMap="BaseResultMap">
-    select 
-    p.photo,p.creation_time,u.user_name,p.specification,p.status,p.id,name,p.product_type,p.context
-    from 
-    product_info      p
-    left  join   user u  on p.user_id=u.id
-  </select>
   
   <!--查看多少产品信息的方法  -->
   <select id="selectProductInfoCount" resultType="java.lang.Integer">
   SELECT COUNT(*) FROM product_info
   </select>
   
+   <!--查看全部产品信息的方法  -->
+  <select id="selectAllProductInfo" resultType="com.tomlive.util.ProductInfoUtil">
+    select p.id,p.photo,p.name,e.type_name as typeName,e.id as  typeId,
+    product_trait as productTrait,product_parameters as productParameters,product_external as productExternal,
+    product_order as productOrder,product_attention as productAttention,
+    p.creation_time  as creationTime, p.context,p.specification,p.user_id,p.status,
+    u.user_name as userName ,e.type_name as typeName,u.real_name  as realName 
+    from 
+    product_info               p
+    left  join   user          u        on  p.user_id=u.id
+    left  join   product_type  e        on  p.product_typeId=e.id
+    
+  </select>
+  
   
   
   <!-- 根据条件查看产品信息 -->
-    <select id="selectProductInfoByCondition" resultMap="BaseResultMap">
-      select * from product_info 
+    <select id="selectProductInfoByCondition" parameterType="java.util.Map" resultType="com.tomlive.util.ProductInfoUtil">
+    select p.id,p.photo,p.name,e.type_name as typeName,e.id as  typeId,
+    product_trait as productTrait,product_parameters as productParameters,product_external as productExternal,
+    product_order as productOrder,product_attention as productAttention,
+    p.creation_time  as creationTime, p.context,p.specification,p.user_id,p.status,
+    u.user_name as userName ,e.type_name as typeName,u.real_name  as realName 
+    from 
+    product_info               p
+    left  join   user          u        on  p.user_id=u.id
+    left  join   product_type  e        on  p.product_typeId=e.id
        <where>
-         <if test="creationTime != null">
-       and creation_time=#{creationTime}
-         </if>
-       <if test="name != null">
-        and name=#{name,jdbcType=VARCHAR}
+      <if test="name != null  and '' != name">
+       and name  LIKE concat("%",#{name},"%") 
       </if>
-      
+       <if test="  productTypeId != null   and '' != productTypeId">
+        and product_typeId=#{productTypeId,jdbcType=INTEGER}
+      </if>
+        <if test="null != beginTime and '' !=beginTime">
+         and creation_time=#{beginTime}
+         </if>
+         <if test="endTime != endTime and  '' !=endTime">
+         and creation_time=#{endTime}
+         </if>
+         <if test="status != null and '' != status">
+        and p.status=#{status,jdbcType=INTEGER}
+      </if>
       </where>
-    
     </select>
     
+     <!-- 根据id查看状态 -->
+  <select id="selectProductInfoStatus"   resultType="java.lang.Integer">
+  select  status
+  from product_info  where  id=#{id}  
+  </select>
+   
+    <!-- 撤回产品-->
+ <update id="updateProductInfoStatus" parameterType="java.lang.Integer">
+    update  product_info  set   status=0  where id=#{id}
+ </update>
+  
+<!-- 发布产品 -->
+   <update id="activeteProductInfoStatus" parameterType="java.lang.Integer">
+    update  product_info  set   status=1  where id=#{id}
+ </update>
       
-      
-      <insert id="">
-      
-      
-      
-      </insert>
-      
-      
-    
+   <!-- 根据主键有选择的修改产品信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.ProductInfo">
+    update product_info
+    <set>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="specification != null">
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="productTypeId != null">
+        product_typeId = #{productTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
+         <if test="productAttention != null">
+        product_trait= #{productAttention,jdbcType=VARCHAR},
+      </if>
+      <if test="productParameters != null">
+        product_parameters=#{productParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="productExternal != null">
+       product_external=#{productExternal,jdbcType=VARCHAR},
+      </if>
+      <if test="productOrder != null">
+       product_order= #{productOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="productAttention != null">
+       product_attention=  #{productAttention,jdbcType=VARCHAR},
+      </if>  
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   
 </mapper>

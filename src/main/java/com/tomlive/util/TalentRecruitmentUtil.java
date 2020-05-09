@@ -3,29 +3,57 @@ package com.tomlive.util;
 import java.util.Date;
 
 public class TalentRecruitmentUtil {
+	private  Integer id;
+
+	private  Integer typeId;
+	private   String realName;
+	
+	
+	
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	private Integer  count;
-	private String   jobType;
-	public Integer getCount() {
-		return count;
-	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-	public String getJobType() {
-		return jobType;
-	}
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
-	}
-   
+	
+    private String typeName;
 
-    /**
-     * 岗位类型
-     */
-  
+	private Date creationTime;
+    
+    private Integer  status;
+    
+    private Integer talentNumber;
+    
+    
+	public Integer getTalentNumber() {
+		return talentNumber;
+	}
 
-    /**
+	public void setTalentNumber(Integer talentNumber) {
+		this.talentNumber = talentNumber;
+	}
+
+	/**
      * 岗位名称
      */
     private String jobName;
@@ -39,23 +67,20 @@ public class TalentRecruitmentUtil {
      * 岗位要求
      */
     private String jobRequirement;
-
-  
-
-    private Date creationTime;
     
-    private Integer  status;
-
-
-    private  String   userName;
-
-
-	public String getUserName() {
+    
+    
+    private String  userName;
+    
+    public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+    
 	public String getJobName() {
 		return jobName;
 	}
@@ -97,6 +122,28 @@ public class TalentRecruitmentUtil {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public TalentRecruitmentUtil() {
+		super();
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+
 
 	
 }

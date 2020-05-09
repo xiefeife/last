@@ -6,54 +6,83 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 产品信息实体类
+ * 产品信息实体�?
  *  @author Xie
- *  @date2020年4月20日
- */
-/*
- * @Data
- * 
- * @NoArgsConstructor
+ *  @date2020�?4�?20�?
  */
 public class ProductInfo {
     private Integer id;
 
-    private String photo;
+	private String photo;
 
-    private String name;
+	private String name;
 
-    private User user;
+	private User user;
 
-    private Date creationTime;
+	private Date creationTime;
 
-    /**
-     * 排序
-     */
-    private Integer sort;
+	private Integer sort;
 
-    private String specification;
+	private String specification;
 
-    private String context;
+	private Integer status;
 
-    private String productType;
+	private ProductType productTypeId;
 
-    private Integer status;
+	private String context;
 
+     //产品特点
+	private  String productTrait;
+	//技术参数
+	private  String productParameters;
+	//外观尺寸
+	private  String productExternal;
+	//订货须知
+	private  String productOrder;
+	//注意事项
+	private  String productAttention;
+	
 
-
-	@Override
-	public String toString() {
-		return "ProductInfo [id=" + id + ", photo=" + photo + ", name=" + name + ", user=" + user + ", creationTime="
-				+ creationTime + ", sort=" + sort + ", specification=" + specification + ", context=" + context
-				+ ", productType=" + productType + ", status=" + status + "]";
+	
+	
+	public String getProductTrait() {
+		return productTrait;
 	}
 
-	public User getUser() {
-		return user;
+	public void setProductTrait(String productTrait) {
+		this.productTrait = productTrait;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public String getProductParameters() {
+		return productParameters;
+	}
+
+	public void setProductParameters(String productParameters) {
+		this.productParameters = productParameters;
+	}
+
+	public String getProductExternal() {
+		return productExternal;
+	}
+
+	public void setProductExternal(String productExternal) {
+		this.productExternal = productExternal;
+	}
+
+	public String getProductOrder() {
+		return productOrder;
+	}
+
+	public void setProductOrder(String productOrder) {
+		this.productOrder = productOrder;
+	}
+
+	public String getProductAttention() {
+		return productAttention;
+	}
+
+	public void setProductAttention(String productAttention) {
+		this.productAttention = productAttention;
 	}
 
 	public Integer getId() {
@@ -69,7 +98,7 @@ public class ProductInfo {
 	}
 
 	public void setPhoto(String photo) {
-		this.photo = photo;
+		this.photo = photo == null ? null : photo.trim();
 	}
 
 	public String getName() {
@@ -77,10 +106,18 @@ public class ProductInfo {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name == null ? null : name.trim();
 	}
 
-	
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Date getCreationTime() {
 		return creationTime;
@@ -103,23 +140,7 @@ public class ProductInfo {
 	}
 
 	public void setSpecification(String specification) {
-		this.specification = specification;
-	}
-
-	public String getContext() {
-		return context;
-	}
-
-	public void setContext(String context) {
-		this.context = context;
-	}
-
-	public String getProductType() {
-		return productType;
-	}
-
-	public void setProductType(String productType) {
-		this.productType = productType;
+		this.specification = specification == null ? null : specification.trim();
 	}
 
 	public Integer getStatus() {
@@ -130,10 +151,34 @@ public class ProductInfo {
 		this.status = status;
 	}
 
-	public ProductInfo() {
-		super();
+
+
+	
+
+	
+
+	public ProductType getProductTypeId() {
+		return productTypeId;
+	}
+
+	public void setProductTypeId(ProductType productTypeId) {
+		this.productTypeId = productTypeId;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context == null ? null : context.trim();
 	}
 
 
+
+
+
+   
+
+	
     
 }

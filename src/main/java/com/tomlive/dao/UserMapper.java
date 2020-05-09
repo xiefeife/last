@@ -1,6 +1,7 @@
 package com.tomlive.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -8,7 +9,7 @@ import com.tomlive.entity.User;
 
 public interface UserMapper {
 
-	int deleteByPrimaryKey(String user);
+	int deleteByPrimaryKey(Integer id);
 	
 	  /**
 	     * 用户登录的方法
@@ -18,12 +19,13 @@ public interface UserMapper {
 	  */
      User login(@Param("userName")String userName,@Param("password")String password);
 
+   
      /**
        * 添加用户的方法
       * @param user  用户对象
       * @return   受影响的行数
       */
-     int  insertSelective(User user); 
+     int  insertSelective(Map<String, String> map); 
      
      
      /**
@@ -39,7 +41,7 @@ public interface UserMapper {
 * @param param   数字0或者1
 * @return   受影响行数
 */
-     int activeteUserStatus(Integer id);
+    Integer activeteUserStatus(Integer id);
      
 	/**
 	 * 冻结用户
@@ -68,7 +70,7 @@ public interface UserMapper {
      int updateByPrimaryKey(User record);
      
      /**
-               * 根据id查看用户
+      * 根据id查看用户
       * @param id
       * @return
       */
@@ -76,7 +78,9 @@ public interface UserMapper {
      
      List<User> selectAllUser();
      
-     int  selectUserStatus(Integer id);
+     Integer  selectUserStatus(Integer id);
+     
+     int updateUserRealNaem(Map<String, Object> map);
      
      
 }

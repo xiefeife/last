@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tomlive.annotation.SysLog;
 import com.tomlive.dao.OperationMapper;
 import com.tomlive.entity.Operation;
 import com.tomlive.util.JsonUtil;
+import com.tomlive.util.PageDomain;
 
 /**
  *   日志控制层
@@ -22,7 +25,7 @@ import com.tomlive.util.JsonUtil;
  */
 @ResponseBody
 @Controller
-@RequestMapping("operation")
+@RequestMapping("/operation")
 public class OperationController {
 
 	@Autowired
@@ -33,11 +36,16 @@ public class OperationController {
 	 * @return
 	 */
 	@SysLog(description="查看全部日志")
-	@RequestMapping(value="selectAllOperation")
-	public JsonUtil  selectAllOperation() {
+	@RequestMapping(value="/selectAllOperation")
+	public JsonUtil  selectAllOperation(@RequestParam(value="pageNo",required = false)Integer pageNo) {
+		if (null == pageNo || 0 == pageNo) {
+			pageNo = 1;
+		}
+		PageHelper.startPage(pageNo,PageDomain.PAGE_SIZE );
 	     List<Operation> list=    operationMapper.selectAllOperation();
-	 	    if(null!=list) {
-	 	    	return new JsonUtil("200", list, "查看全部日志成功");
+	     if(null!=list) {
+	     PageInfo<Operation> page=new PageInfo<Operation>(list);
+	 	    	return new JsonUtil("200", page, "查看全部日志成功");
 	 	    }
 		 return new JsonUtil("500", null, "查看全部日志失败");
 		

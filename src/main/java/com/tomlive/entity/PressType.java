@@ -2,7 +2,7 @@ package com.tomlive.entity;
 
 import java.util.Date;
 
-public class PressSort {
+public class PressType {
     private Integer id;
 
     private String pressName;
@@ -52,4 +52,10 @@ public class PressSort {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+	public PressType() {
+		super();
+	}
+    
+    
 }

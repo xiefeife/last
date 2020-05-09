@@ -18,13 +18,52 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
+    
+       <!--  自定义登录语句 -->
+  <select id="login" resultMap="BaseResultMap">
+    select 
+    *
+    from user  
+    where user_name=#{userName} and password=#{password}
+  </select>
+ 
+ <!--  根据用户名查看用户 -->
+ <select id="selectUserByUserName"    resultType="com.tomlive.entity.User">
+   select * from user where user_name =#{userName}
+ </select>
+ 
+  
+ <!-- 冻结用户 -->
+ <update id="updateUserStatus" parameterType="com.tomlive.entity.User">
+    update  user  set   status=2  where id=#{id}
+ </update>
+  
+<!-- 激活用户 -->
+   <update id="activeteUserStatus" parameterType="com.tomlive.entity.User">
+    update  user  set   status=1  where id=#{id}
+ </update>
+  
+  
+  <!--  修改用户密码 -->
+  <update id="updateUserPassword" parameterType="com.tomlive.entity.User">
+    update  user  set   password=#{password}  where user_name=#{userName}
+ </update>
+ 
+ <!--   修改用户名名称 -->
+  <update id="updateUserRealNaem" parameterType="java.util.Map">
+    update  user  set   real_name=#{realName}  where id=#{id}
+ </update>
+ 
+  <!--   删除用户 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    
+  
   
    <!-- 添加用户sql语句 -->
-  <insert id="insertSelective" parameterType="com.tomlive.entity.User">
+  <insert id="insertSelective" parameterType="java.util.Map">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -63,67 +102,12 @@
         #{status,jdbcType=INTEGER},
       </if>
        <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+         #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   
-  <!-- <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.User">
-    update user
-    <set>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="realName != null">
-        real_name = #{realName,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tomlive.entity.User">
-    update user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update> -->
-  
-       <!--  自定义登录语句 -->
-  <select id="login" resultMap="BaseResultMap">
-    select 
-    *
-    from user  
-    where user_name=#{userName} and password=#{password}
-  </select>
- 
- <!--  根据用户名查看用户 -->
- <select id="selectUserByUserName"    resultType="com.tomlive.entity.User">
-   select * from user where user_name =#{userName}
- </select>
- 
-  
- <!-- 冻结用户 -->
- <update id="updateUserStatus" parameterType="com.tomlive.entity.User">
-    update  user  set   status=0  where id=#{id}
- </update>
-  
-<!-- 激活用户 -->
-   <update id="activeteUserStatus" parameterType="com.tomlive.entity.User">
-    update  user  set   status=1  where id=#{id}
- </update>
-  
-  
-  <!--  修改用户密码 -->
-  <update id="updateUserPassword" parameterType="com.tomlive.entity.User">
-    update  user  set   password=#{password}  where user_name=#{userName}
- </update>
+
   
                   <!-- 根据条件查询用户 -->
   <select id="selectUserByCondition" resultMap="BaseResultMap">
@@ -136,7 +120,7 @@
       <if test="null !=userName and userName!=''">
        and user_name=#{userName}               
       </if>
-       <if test="status != null and status!=''">
+       <if test="status != null and '' != status ">
        and status=#{status}               
       </if>
   </where>
@@ -144,7 +128,7 @@
   
   <!-- 查看所有用户 -->
   <select id="selectAllUser" resultMap="BaseResultMap">
-  select  id, user_name, password, real_name, status,create_time
+  select  *
   from user  
   </select>
   

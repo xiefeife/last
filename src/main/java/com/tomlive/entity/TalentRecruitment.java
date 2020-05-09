@@ -8,9 +8,14 @@ public class TalentRecruitment {
     /**
      * 岗位类型
      */
-    private String jobType;
+    private TalentType talentType;
 
-    /**
+    private Integer talentNumber;
+
+
+   
+
+	/**
      * 岗位名称
      */
     private String jobName;
@@ -39,12 +44,14 @@ public class TalentRecruitment {
 		this.id = id;
 	}
 
-	public String getJobType() {
-		return jobType;
+
+
+	public TalentType getTalentType() {
+		return talentType;
 	}
 
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
+	public void setTalentType(TalentType talentType) {
+		this.talentType = talentType;
 	}
 
 	public String getJobName() {
@@ -99,6 +106,14 @@ public class TalentRecruitment {
 	public TalentRecruitment() {
 		super();
 	}
+
+	 public Integer getTalentNumber() {
+			return talentNumber;
+		}
+
+		public void setTalentNumber(Integer talentNumber) {
+			this.talentNumber = talentNumber;
+		}
     
 
 }

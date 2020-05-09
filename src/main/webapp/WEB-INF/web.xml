@@ -4,16 +4,17 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/j2ee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
    <display-name>tomlive</display-name>
-   
+  
+    <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener> 
    
   <!-- spring文件监听器 -->
   <context-param>
   	<param-name>contextConfigLocation</param-name>
   	<param-value>classpath:applicationContext.xml</param-value>
   </context-param>
-  <listener>
-  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+
   
   <!-- springmvc前段控制器 -->
   <servlet>
@@ -59,7 +60,7 @@
 </filter>
 
 
--<filter-mapping>
+<filter-mapping>
 
 <filter-name>cors</filter-name>
 

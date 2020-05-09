@@ -10,58 +10,7 @@
     <result column="param" jdbcType="VARCHAR" property="param" />
     <result column="userName" jdbcType="VARCHAR" property="userName"/>
   </resultMap>
-  <!-- <sql id="Base_Column_List">
-    operation_id, operation_time, operation_content, user_id, operation_ip, param
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from operation
-    where operation_id = #{operationId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from operation
-    where operation_id = #{operationId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tomlive.entity.Operation">
-    insert into operation (operation_id, operation_time, operation_content, 
-      user_id, operation_ip, param
-      )
-    values (#{operationId,jdbcType=INTEGER}, #{operationTime,jdbcType=TIMESTAMP}, #{operationContent,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=INTEGER}, #{operationIp,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}
-      )
-  </insert>
  
-  <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.Operation">
-    update operation
-    <set>
-      <if test="operationTime != null">
-        operation_time = #{operationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="operationContent != null">
-        operation_content = #{operationContent,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="operationIp != null">
-        operation_ip = #{operationIp,jdbcType=VARCHAR},
-      </if>
-      <if test="param != null">
-        param = #{param,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where operation_id = #{operationId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tomlive.entity.Operation">
-    update operation
-    set operation_time = #{operationTime,jdbcType=TIMESTAMP},
-      operation_content = #{operationContent,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
-      operation_ip = #{operationIp,jdbcType=VARCHAR},
-      param = #{param,jdbcType=VARCHAR}
-    where operation_id = #{operationId,jdbcType=INTEGER}
-  </update> -->
   
   
      <!-- 自定义查询语句 -->
@@ -121,10 +70,10 @@
   select * from operation
   <where>
      <if test="  null !=operationIp and ''!=operationIp">
-         and operation_ip=#{operationIp}               
+         and operation_ip LIKE    concat("%",#{operationIp},"%")          
       </if>
 	 <if test="  null  != operationContent and '' != operationContent">
-        and  operation_content=#{operationContent}  
+        and  operation_content  LIKE   concat("%",#{operationContent},"%")   
       </if>
         <if test=" null  != beginTime and ''!= beginTime">
         <![CDATA[

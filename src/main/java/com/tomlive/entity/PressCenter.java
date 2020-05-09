@@ -3,6 +3,7 @@ package com.tomlive.entity;
 import java.util.Date;
 
 public class PressCenter {
+	
     private Integer id;
 
     private String photo;
@@ -21,7 +22,10 @@ public class PressCenter {
      */
     private String particulars;
 
-    private PressSort presssort;
+    /**
+     * 新闻模块(板块)
+     */
+    private PressType pressType;
     
     private Integer status;
     
@@ -30,8 +34,8 @@ public class PressCenter {
 		super();
 	}
 
-	public PressSort getPresssort() {
-		return presssort;
+	public PressType getPresssort() {
+		return pressType;
 	}
 
 	public Integer getStatus() {
@@ -42,11 +46,10 @@ public class PressCenter {
 		this.status = status;
 	}
 
-	public void setPresssort(PressSort presssort) {
-		this.presssort = presssort;
+	public void setPresssort(PressType presssort) {
+		this.pressType = presssort;
 	}
 
-	private String content;
 
     public Integer getId() {
         return id;
@@ -72,23 +75,23 @@ public class PressCenter {
         this.title = title == null ? null : title.trim();
     }
 
-    
-                                                                                 //详情
-    public PressCenter(String photo, String title, User user, Date creationTime, String particulars,
-			PressSort presssort, Integer status, String content) {
+                                                                                 
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public PressCenter(String photo, String title, User user, Date creationTime, String particulars,
+			PressType presssort, Integer status) {
 		super();
 		this.photo = photo;
 		this.title = title;
 		this.user = user;
 		this.creationTime = creationTime;
 		this.particulars = particulars;
-		this.presssort = presssort;
+		this.pressType = pressType;
 		this.status = status;
-		this.content = content;
-	}
-
-	public User getUser() {
-		return user;
 	}
 
 	public void setUser(User user) {
@@ -112,11 +115,5 @@ public class PressCenter {
     }
 
 
-    public String getContent() {
-        return content;
-    }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
 }

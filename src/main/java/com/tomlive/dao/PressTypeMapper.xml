@@ -1,34 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tomlive.dao.PressSortMapper">
-  <resultMap id="BaseResultMap" type="com.tomlive.entity.PressSort">
+<mapper namespace="com.tomlive.dao.PressTypeMapper">
+  <resultMap id="BaseResultMap" type="com.tomlive.entity.PressType">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="press_name" jdbcType="VARCHAR" property="pressName" />
     <result column="press_describe" jdbcType="VARCHAR" property="pressDescribe" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, press_name, press_describe, create_time, user_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from press_sort
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from press_sort
+ 
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from press_type
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tomlive.entity.PressSort">
-    insert into press_sort (id, press_name, press_describe, 
-      create_time, user_id)
-    values (#{id,jdbcType=INTEGER}, #{pressName,jdbcType=VARCHAR}, #{pressDescribe,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tomlive.entity.PressSort">
-    insert into press_sort
+
+  			<!-- 添加岗位的操作 -->
+  <insert id="insertSelective" parameterType="java.util.Map">
+    insert into press_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -64,8 +52,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.PressSort">
-    update press_sort
+<!--   <update id="updateByPrimaryKeySelective" parameterType="com.tomlive.entity.PressType">
+    update press_type
     <set>
       <if test="pressName != null">
         press_name = #{pressName,jdbcType=VARCHAR},
@@ -81,29 +69,37 @@
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tomlive.entity.PressSort">
-    update press_sort
-    set press_name = #{pressName,jdbcType=VARCHAR},
-      press_describe = #{pressDescribe,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  
-  
-  
-  
+  </update> -->
+
   
   
   
       <!-- 自定义sql语句 -->
-  <select id="selectAllPressSort" resultMap="BaseResultMap">
-  select 
-   id, press_name, press_describe, create_time, user_id
-   from press_sort 
+  <select id="selectAllPressType" resultType="java.util.Map">
+    select 
+   e.*,u.user_name,u.real_name                                                          
+   from press_type e
+   left join    user  u  on e.user_id=u.id
   </select>
+  
+  <!--  删除的语句 -->
+<delete id="deleteBy" parameterType="java.lang.Integer">
+    delete from press_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+        <!-- 根据主键有选择的修改岗位 -->
+  <update id="updateByPrimaryKeySelective" parameterType="java.util.Map">
+    update press_type
+    <set>
+      <if test="pressName != null">
+        press_name = #{pressName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    
+  
   
   
 </mapper>
